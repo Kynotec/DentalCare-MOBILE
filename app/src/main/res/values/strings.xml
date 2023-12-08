@@ -5,4 +5,24 @@
     <string name="txt_login">Login</string>
     <string name="et_email">E-mail</string>
     <string name="et_password">Password</string>
+    <string name="txt_itens_disponiveis">Itens Disponíveis</string>
+    <string name="txt_servicos">Serviços</string>
+    <string name="txt_marcacoes">Marcações</string>
+    <string name="txt_marcarConsulta">Marcar Consulta</string>
+    <string name="txt_lista_marcacoes">Lista das Marcações</string>
+    <string name="txt_carrinho">Carrinho</string>
+    <string name="txt_faturas">Faturas</string>
+    <string name="txt_compras">Compras</string>
+    <string name="txt_dados_utente">Dados do Utente</string>
+    <string name="txt_utente">Utente</string>
+    <string name="txt_diagnosticos">Diagnósticos</string>
+    <string name="txt_nome">Nome</string>
+    <string name="txt_telefone">Telefone</string>
+    <string name="txt_morada">Morada</string>
+    <string name="txt_nif">NIF</string>
+    <string name="txt_codigo_postal">Código-Postal</string>
+    <string name="txt_email">E-mail</string>
+    <string name="txt_password">Password</string>
+    <string name="txt_data">Data</string>
+    <string name="txt_descricao_diagnostico">Descrição do Diagnóstico</string>
 </resources>

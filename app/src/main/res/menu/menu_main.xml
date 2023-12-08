@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+
+    <item android:title="@string/txt_itens_disponiveis">
+        <menu>
+            <item
+                android:id="@+id/navItemProdutos"
+                android:title="@string/txt_produtos"
+                android:icon="@drawable/ic_action_produtos"/>
+
+            <item
+                android:id="@+id/navItemServicos"
+                android:title="@string/txt_servicos"
+                android:icon="@drawable/ic_action_servicos"/>
+        </menu>
+
+    </item>
+
+    <item android:title="@string/txt_marcacoes">
+        <menu>
+            <item
+                android:id="@+id/navItemMarcar"
+                android:title="@string/txt_marcarConsulta"
+                android:icon="@drawable/ic_action_marcar_consulta"/>
+            <item
+                android:id="@+id/navItemListaMarcacoes"
+                android:title="@string/txt_lista_marcacoes"
+                android:icon="@drawable/ic_action_lista_consulta"/>
+        </menu>
+    </item>
+
+    <item android:title="@string/txt_compras">
+        <menu>
+            <item
+                android:id="@+id/navItemCarrinho"
+                android:title="@string/txt_carrinho"
+                android:icon="@drawable/ic_action_carrinho"/>
+            <item
+                android:id="@+id/navItemFaturas"
+                android:title="@string/txt_faturas"
+                android:icon="@drawable/ic_action_faturas"/>
+        </menu>
+    </item>
+
+    <item android:title="@string/txt_utente">
+        <menu>
+            <item
+                android:id="@+id/navItemDadosUtente"
+                android:title="@string/txt_dados_utente"
+                android:icon="@drawable/ic_action_dados_utente"/>
+            <item
+                android:id="@+id/navItemDiagnosticos"
+                android:title="@string/txt_diagnosticos"
+                android:icon="@drawable/ic_action_diagnostico"/>
+        </menu>
+    </item>
+</menu>
