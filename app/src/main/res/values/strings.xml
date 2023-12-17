@@ -25,11 +25,9 @@
     <string name="txt_password">Password</string>
     <string name="txt_data">Data</string>
     <string name="txt_descricao_diagnostico">Descrição do Diagnóstico</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="data">Data:</string>
-    <string name="ivatotal">IvaTotal:</string>
-    <string name="estado">Estado:</string>
-    <string name="valortotal">ValorTotal:</string>
-    <string name="subtotal">SubTotal:</string>
+    <string name="txt_subtotal">SubTotal:</string>
+    <string name="txt_n_fatura">NºFatura</string>
+    <string name="txt_ivatotal">Iva Total:</string>
+    <string name="txt_estado">Estado:</string>
+    <string name="txt_valortotal">Valor Total:</string>
 </resources>
