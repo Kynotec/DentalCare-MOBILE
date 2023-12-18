@@ -9,17 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class ListaFaturasFragment extends Fragment {
+public class ListaProdutosOfflineFragment extends Fragment {
 
-    public ListaFaturasFragment() {
+
+    public ListaProdutosOfflineFragment() {
         // Required empty public constructor
     }
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lista_faturas, container, false);
+        return inflater.inflate(R.layout.fragment_lista_produtos_offline, container, false);
     }
 }

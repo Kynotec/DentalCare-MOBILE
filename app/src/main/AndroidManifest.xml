@@ -13,6 +13,9 @@
         android:theme="@style/Theme.DentalCare"
         tools:targetApi="31">
         <activity
+            android:name=".DetalhesProdutosOfflineActivity"
+            android:exported="false" />
+        <activity
             android:name=".DetalhesFaturasActivity"
             android:exported="false"
             android:theme="@style/Theme.DentalCare" />
