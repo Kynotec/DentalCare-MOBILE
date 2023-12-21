@@ -26,7 +26,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvddd"
+                android:id="@+id/tvHoraMarcacao"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp" />
@@ -45,7 +45,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvEstado"
+                android:id="@+id/tvDataMarcacao"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp" />
@@ -66,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
-                android:id="@+id/tvIvaTotal"/>
+                android:id="@+id/tvService"/>
         </LinearLayout>
 
         <LinearLayout
@@ -84,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
-                android:id="@+id/tvSubTotal"/>
+                android:id="@+id/tvMedico"/>
 
         </LinearLayout>
 

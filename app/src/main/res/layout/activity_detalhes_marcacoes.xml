@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="5dp"
     android:orientation="vertical"
-    tools:context=".DetalhesFaturasActivity">
+    tools:context=".DetalhesMarcacoesActivity">
 
 
     <LinearLayout
@@ -14,19 +14,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvNFatura"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:textSize="25dp"
-            android:text="@string/txt_n_fatura" />
-
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="130dp"
-            android:src="@drawable/ic_action_faturas" />
+            android:src="@drawable/ic_action_marcar_consulta" />
 
         <Space
             android:layout_width="match_parent"
@@ -44,18 +36,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"></LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
+                        android:text="@string/txt_hora"
                         android:textSize="22dp"
-                        android:text="@string/txt_data" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvHoraMarcacao"
@@ -68,12 +56,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
+                        android:text="@string/txt_data"
                         android:textSize="22dp"
-                        android:text="@string/txt_estado" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvDataMarcacao"
@@ -86,12 +75,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
+                        android:text="@string/txt_servico"
                         android:textSize="22dp"
-                        android:text="@string/txt_ivatotal" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvService"
@@ -104,12 +94,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
+                        android:text="@string/txt_medico"
                         android:textSize="22dp"
-                        android:text="@string/txt_subtotal" />
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tvMedico"
@@ -118,25 +109,40 @@
                         android:layout_marginStart="5dp" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:textSize="22dp"
-                        android:text="@string/txt_valortotal" />
-
-                    <TextView
-                        android:id="@+id/tvValorTotal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="5dp" />
-                </LinearLayout>
             </LinearLayout>
+
         </ScrollView>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="320dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionDelete"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:src="@drawable/ic_action_save" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionDelete"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:src="@drawable/ic_action_delete" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
