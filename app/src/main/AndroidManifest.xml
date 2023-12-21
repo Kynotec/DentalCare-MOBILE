@@ -13,8 +13,17 @@
         android:theme="@style/Theme.DentalCare"
         tools:targetApi="31">
         <activity
+
+        <activity
             android:name=".DetalhesMarcacoesActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.DentalCare" />
+        <activity
+        <activity
+            android:name=".DetalhesProdutosOfflineActivity"
+            android:exported="false"
+            android:theme="@style/Theme.DentalCare" />
+        <activity
         <activity
             android:name=".DetalhesFaturasActivity"
             android:exported="false"
