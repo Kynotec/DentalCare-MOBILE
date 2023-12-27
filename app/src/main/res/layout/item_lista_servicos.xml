@@ -6,7 +6,7 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/imgProduto"
+        android:id="@+id/imgServico"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.3"
@@ -27,32 +27,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="@string/txt_nome_produto" />
+                android:text="@string/txt_descricao_servico" />
 
             <TextView
-                android:id="@+id/tvNomeProduto"
+                android:id="@+id/tvDescricaoServico"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/txt_descricao_produto"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvDescricaoProduto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp" />
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -62,15 +45,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="@string/txt_precounitario_produto" />
+                android:text="@string/txt_taxa_iva" />
 
             <TextView
-                android:id="@+id/tvPrecoUnitarioProduto"
+                android:id="@+id/tvTaxaIva"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                />
+                android:textStyle="bold"
+                android:text="@string/txt_preco_servico" />
+
+            <TextView
+                android:id="@+id/tvPrecoServico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp" />
         </LinearLayout>
+
 
     </LinearLayout>
 
@@ -90,7 +91,7 @@
             android:focusable="true"
             android:clickable="true"
             app:backgroundTint="@color/white"
-            android:src="@drawable/ic_action_carrinho" />
+            android:src="@drawable/ic_action_add" />
 
     </LinearLayout>
 
