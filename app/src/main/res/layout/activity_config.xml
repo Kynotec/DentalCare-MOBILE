@@ -6,38 +6,34 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_margin="5dp"
-    tools:context=".LoginActivity">
+    tools:context=".ConfigActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.7"
-        android:src="@drawable/dentalcare_logo" />
+        android:layout_weight="0.3"
+        />
 
     <EditText
-        android:id="@+id/etUsername"
+        android:id="@+id/etConfiguracaoServidor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/et_username"
-        android:inputType="text"/>
+        android:hint="@string/et_ip"
+        android:inputType="textPersonName"/>
 
-
-    <EditText
-        android:id="@+id/etPassword"
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/et_password"
-        android:inputType="textPassword" />
-
+        android:layout_height="0dp"
+        android:layout_weight="0.04"
+        />
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/txt_login"
-        android:onClick="onClickLogin"/>
+        android:layout_height="55dp"
+        android:onClick="onClickSendIP"
+        android:text="@string/txt_adicionar_ip" />
+
 
     <Space
         android:layout_width="match_parent"
