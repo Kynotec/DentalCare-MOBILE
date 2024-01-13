@@ -43,5 +43,7 @@
     <string name="et_ip">IP do Servidor</string>
     <string name="txt_username_invalido">O username é inválido\n</string>
     <string name="txt_password_invalida">A password está incorreta\n\n</string>
+    <string name="ndOpen">open</string>
+    <string name="ndClose">close</string>
 
 </resources>

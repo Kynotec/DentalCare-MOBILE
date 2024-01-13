@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +21,8 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
 
     private EditText etUsername, etPassword;
     private final int MIN_PASS = 8;
+
+    public static final String USERNAME="USERNAME";
 
 
     @Override
@@ -86,13 +89,20 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     @Override
     public void onValidateLogin(String token, String username, Context context) {
         if (token != null) {
-            Intent intent = new Intent(this, MenuMainActivity.class);
+            // Salvar o nome de usuário nas SharedPreferences
+            SharedPreferences sharedPreferences = getSharedPreferences("DADOS_USER", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editorUser = sharedPreferences.edit();
+            editorUser.putString(MenuMainActivity.USERNAME, username);
+            editorUser.apply();
+
+            // Iniciar a MenuMainActivity
+            Intent intent = new Intent(context, MenuMainActivity.class);
             intent.putExtra(MenuMainActivity.USERNAME, username);
             intent.putExtra(MenuMainActivity.TOKEN, token);
             startActivity(intent);
-            finish();
+            finish();  // Finalizar LoginActivity, se necessário
         } else {
-            Toast.makeText(getApplicationContext(), "Erro login", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Erro login", Toast.LENGTH_LONG).show();
         }
 
     }

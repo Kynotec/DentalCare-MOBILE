@@ -10,11 +10,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.dentalcare.LoginActivity;
 import com.example.dentalcare.listeners.LoginListener;
 import com.example.dentalcare.utils.JsonParser;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,7 +42,7 @@ public class SingletonGestorApp {
         }
         return instance;
     }
-    public void setLoginListener(LoginActivity loginActivity) {
+    public void setLoginListener(LoginListener loginListener) {
         this.loginListener = loginListener;
     }
 
@@ -52,11 +55,6 @@ public class SingletonGestorApp {
     public String getIpAddress() {
         return ipAddress;
     }
-
-
-
-
-
 
     public void loginAPI(final String username, final String password, final Context context) {
         // Obter o endereço IP armazenado nas SharedPreferences
@@ -96,7 +94,4 @@ public class SingletonGestorApp {
             volleyQueue.add(req);
         }
     }
-
-
-
 }
