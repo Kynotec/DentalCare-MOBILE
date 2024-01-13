@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
@@ -81,6 +83,17 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        Fragment fragment = null;
+
+        if (item.getItemId() == R.id.navItemProdutos) {
+            fragment = new ListaProdutosFragment();
+            setTitle(item.getTitle());
+            System.out.println("-->Nav Produtos");
+        }
+        if (fragment != null)
+            fragmentManager.beginTransaction().replace(R.id.contentFragment, fragment).commit();
+
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

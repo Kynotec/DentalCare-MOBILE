@@ -14,7 +14,9 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.dentalcare.LoginActivity;
+import com.example.dentalcare.R;
 import com.example.dentalcare.listeners.LoginListener;
+import com.example.dentalcare.listeners.ProdutosListener;
 import com.example.dentalcare.utils.JsonParser;
 
 import org.json.JSONArray;
@@ -26,14 +28,15 @@ import java.util.Map;
 public class SingletonGestorApp {
 
     private String ipAddress;  // Variável para armazenar o endereço IP
+
+    private ArrayList<Produto> produtos;
     private static SingletonGestorApp instance = null;
     private static RequestQueue volleyQueue = null;
     private LoginListener loginListener;
+    private ProdutosListener produtosListener;
     private BDHelper BD;
 
-    private SingletonGestorApp(Context context) {
-        BD = new BDHelper(context);
-    }
+
 
     public static synchronized SingletonGestorApp getInstance(Context context) {
         if (instance == null) {
@@ -42,8 +45,18 @@ public class SingletonGestorApp {
         }
         return instance;
     }
+
+    private SingletonGestorApp(Context context) {
+        // BD = new BDHelper(context);
+        produtos = new ArrayList<>();
+    }
+
     public void setLoginListener(LoginListener loginListener) {
         this.loginListener = loginListener;
+    }
+
+    public void setProdutosListener(ProdutosListener produtosListener){
+        this.produtosListener = produtosListener;
     }
 
     //Adiciona o IP no Singleton
@@ -94,4 +107,31 @@ public class SingletonGestorApp {
             volleyQueue.add(req);
         }
     }
+
+
+    public void getAllProdutosAPI(final Context context) {
+        if(!JsonParser.isConnectionInternet(context)){
+            Toast.makeText(context, context.getString(R.string.sem_ligacao), Toast.LENGTH_SHORT).show();
+        }else {
+
+            final String APIProdutoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/produto";
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, APIProdutoWithIP, null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    produtos = JsonParser.parserJsonProdutos(response);
+                    if (produtosListener != null)
+                        produtosListener.onRefreshListaProdutos(produtos);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage()+"", Toast.LENGTH_SHORT).show();
+                }
+            });
+            volleyQueue.add(jsonArrayRequest);
+        }
+    }
+
+
+
 }
