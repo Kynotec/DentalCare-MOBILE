@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.example.dentalcare.models.Produto;
+import com.example.dentalcare.models.Servico;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,6 +50,7 @@ public class JsonParser {
         return username;
     }
 
+    //Produtos
 
     public static ArrayList<Produto> parserJsonProdutos(JSONArray response) {
         ArrayList<Produto> produtos = new ArrayList<>();
@@ -89,10 +91,50 @@ public class JsonParser {
         return produto;
     }
 
+    //Servicos
 
+    public static ArrayList<Servico> parserJsonServicos(JSONArray response) {
+        ArrayList<Servico> servicos = new ArrayList<>();
+        try {
+            for (int i = 0; i < response.length(); i++) {
 
+                JSONObject servicoJson = (JSONObject) response.get(i);
+                int id = servicoJson.getInt("id");
+                String referencia = servicoJson.getString("referencia");
+                String nome = servicoJson.getString("nome");
+                String descricao = servicoJson.getString("descricao");
+                String precoString = servicoJson.getString("preco");
+                double preco= Double.parseDouble(precoString);
+                int iva_id = servicoJson.getInt("iva_id");
 
+                Servico servico = new Servico(id,referencia,nome,descricao,preco,iva_id);
+                servicos.add(servico);
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
 
+        return servicos;
+    }
+
+    public static Servico parserJsonServico(String response) {
+        Servico servico =null;
+        try {
+            JSONObject servicoJson = new JSONObject(response);
+            int id = servicoJson.getInt("id");
+            String referencia = servicoJson.getString("referencia");
+            String nome = servicoJson.getString("nome");
+            String descricao = servicoJson.getString("descricao");
+            String precoString = servicoJson.getString("preco");
+            double preco= Double.parseDouble(precoString);
+            int iva_id = servicoJson.getInt("iva_id");
+            servico = new Servico(id,referencia,nome,descricao,preco,iva_id);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        return servico;
+    }
 
 
 

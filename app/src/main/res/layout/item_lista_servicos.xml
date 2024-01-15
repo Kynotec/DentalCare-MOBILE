@@ -30,7 +30,7 @@
                 android:text="@string/txt_descricao_servico" />
 
             <TextView
-                android:id="@+id/tvDescricaoServico"
+                android:id="@+id/tvNomeServico"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp" />
@@ -70,28 +70,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp" />
+
         </LinearLayout>
 
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="95dp"
-        android:layout_weight="0"
-        android:orientation="horizontal">
-
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/AdicionarCarrinhoProduto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="16dp"
-            android:focusable="true"
-            android:clickable="true"
-            app:backgroundTint="@color/white"
-            android:src="@drawable/ic_action_add" />
 
     </LinearLayout>
 

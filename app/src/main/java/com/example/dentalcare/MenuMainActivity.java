@@ -24,6 +24,8 @@ import com.google.android.material.navigation.NavigationView;
 public class MenuMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private String username;
 
+    public static final String OPERACAO ="OPERACAO";
+
     private NavigationView navigationView;
     private DrawerLayout drawer;
     public static final String USERNAME = "USER"; // NOME
@@ -89,6 +91,11 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
             fragment = new ListaProdutosFragment();
             setTitle(item.getTitle());
             System.out.println("-->Nav Produtos");
+        }
+        else if (item.getItemId() == R.id.navItemServicos) {
+            fragment = new ListaServicosFragment();
+            setTitle(item.getTitle());
+            System.out.println("-->Nav Servicos");
         }
         if (fragment != null)
             fragmentManager.beginTransaction().replace(R.id.contentFragment, fragment).commit();

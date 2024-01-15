@@ -14,9 +14,12 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.dentalcare.LoginActivity;
+import com.example.dentalcare.MenuMainActivity;
 import com.example.dentalcare.R;
+import com.example.dentalcare.listeners.DetalhesServicoListener;
 import com.example.dentalcare.listeners.LoginListener;
 import com.example.dentalcare.listeners.ProdutosListener;
+import com.example.dentalcare.listeners.ServicosListener;
 import com.example.dentalcare.utils.JsonParser;
 
 import org.json.JSONArray;
@@ -30,10 +33,13 @@ public class SingletonGestorApp {
     private String ipAddress;  // Variável para armazenar o endereço IP
 
     private ArrayList<Produto> produtos;
+    private ArrayList<Servico> servicos;
     private static SingletonGestorApp instance = null;
     private static RequestQueue volleyQueue = null;
     private LoginListener loginListener;
     private ProdutosListener produtosListener;
+    private ServicosListener servicosListener;
+    private DetalhesServicoListener detalhesServicoListener;
     private BDHelper BD;
 
 
@@ -58,6 +64,13 @@ public class SingletonGestorApp {
     public void setProdutosListener(ProdutosListener produtosListener){
         this.produtosListener = produtosListener;
     }
+    public void setServicosListener(ServicosListener servicosListener){
+        this.servicosListener = servicosListener;
+    }
+
+    public void setDetalhesServicoListener(DetalhesServicoListener detalhesServicoListener) {
+        this.detalhesServicoListener = detalhesServicoListener;
+    }
 
     //Adiciona o IP no Singleton
     public void setIpAddress(String ipAddress) {
@@ -69,6 +82,13 @@ public class SingletonGestorApp {
         return ipAddress;
     }
 
+    public Servico getServico(int id) {
+        for (Servico s : servicos) {
+            if (s.getId() == id)
+                return s;
+        }
+        return null;
+    }
     public void loginAPI(final String username, final String password, final Context context) {
         // Obter o endereço IP armazenado nas SharedPreferences
         String ipAddress = SingletonGestorApp.getInstance(context).getIpAddress();
@@ -131,6 +151,30 @@ public class SingletonGestorApp {
             volleyQueue.add(jsonArrayRequest);
         }
     }
+
+    public void getAllServicosAPI(final Context context) {
+        if(!JsonParser.isConnectionInternet(context)){
+            Toast.makeText(context, context.getString(R.string.sem_ligacao), Toast.LENGTH_SHORT).show();
+        }else {
+
+            final String APIServicoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/servico";
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, APIServicoWithIP, null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    servicos = JsonParser.parserJsonServicos(response);
+                    if (servicosListener != null)
+                        servicosListener.onRefreshListaServicos(servicos);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage()+"", Toast.LENGTH_SHORT).show();
+                }
+            });
+            volleyQueue.add(jsonArrayRequest);
+        }
+    }
+
 
 
 
