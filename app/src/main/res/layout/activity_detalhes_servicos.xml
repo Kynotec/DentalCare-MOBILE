@@ -30,10 +30,10 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:ems="10"
-                android:textStyle="bold"
-                android:text="Nome do Servico" />
+                android:text="Nome do Servico"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/etNomeServico"
@@ -45,10 +45,10 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:ems="10"
-                android:textStyle="bold"
-                android:text="Taxa Iva" />
+                android:text="Taxa Iva"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/etTaxaIva"
@@ -59,10 +59,10 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:ems="10"
-                android:textStyle="bold"
-                android:text="Preco do Servico c/IVA" />
+                android:text="Preco do Servico c/IVA"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/etPrecoServico"

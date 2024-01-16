@@ -1,5 +1,7 @@
 package com.example.dentalcare;
 
+import static com.example.dentalcare.ListaServicosFragment.ACT_DETAlHES;
+
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -36,18 +38,19 @@ public class ListaProdutosFragment extends Fragment implements ProdutosListener 
         setHasOptionsMenu(true);
         lvprodutos = view.findViewById(R.id.lvprodutos);
 
-        SingletonGestorApp.getInstance(getContext()).setProdutosListener(this);
-        SingletonGestorApp.getInstance(getContext()).getAllProdutosAPI(getContext());
-
         lvprodutos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
                 Intent intent = new Intent(getContext(), DetalhesProdutosActivity.class);
-                intent.putExtra(DetalhesProdutosActivity.ID_PRODUTO, (int) id);
+                intent.putExtra("ID_PRODUTO", (int) id);
+                startActivityForResult(intent, ACT_DETAlHES);
 
                // startActivityForResult(intent,MenuMainActivity.EDIT);
             }
         });
+
+        SingletonGestorApp.getInstance(getContext()).setProdutosListener(this);
+        SingletonGestorApp.getInstance(getContext()).getAllProdutosAPI(getContext());
         /*
         fabLista = view.findViewById(R.id.fabLista);
         fabLista.setOnClickListener(new View.OnClickListener() {

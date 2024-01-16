@@ -33,7 +33,6 @@ public class DetalhesServicosActivity extends AppCompatActivity implements Detal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_servicos);
 
-
         int id = getIntent().getIntExtra("ID_SERVICO", 0);
         servico = SingletonGestorApp.getInstance(getApplicationContext()).getServico(id);
 
@@ -45,12 +44,12 @@ public class DetalhesServicosActivity extends AppCompatActivity implements Detal
         SingletonGestorApp.getInstance(getApplicationContext()).setDetalhesServicoListener(this);
 
         if (servico != null) {
-            carregarLivro();
+            carregarServico();
         }
 
     }
 
-    private void carregarLivro() {
+    private void carregarServico() {
         etNomeServico.setText(servico.getNome());
         //etTaxaIva.setText(servico.getIva_id());
         etPrecoServico.setText(String.valueOf(servico.getPreco()));

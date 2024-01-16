@@ -49,7 +49,6 @@ public class ListaServicosFragment extends Fragment implements ServicosListener 
             }
         });
 
-
         SingletonGestorApp.getInstance(getContext()).setServicosListener(this);
         SingletonGestorApp.getInstance(getContext()).getAllServicosAPI(getContext());
 

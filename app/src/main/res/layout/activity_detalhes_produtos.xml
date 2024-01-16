@@ -30,13 +30,13 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="match_parent"
                 android:ems="10"
-                android:textStyle="bold"
-                android:text="@string/txt_nome_produto" />
+                android:text="@string/txt_nome_produto"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvNomeProduto"
+                android:id="@+id/etNomeProduto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -47,29 +47,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:ems="10"
-                android:textStyle="bold"
-                android:text="@string/txt_descricao_produto" />
+                android:text="@string/txt_descricao_produto"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvDescricaoProduto"
-                android:layout_width="wrap_content"
+                android:id="@+id/etDescricaoProduto"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                />
+                android:layout_marginStart="5dp" />
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="match_parent"
                 android:ems="10"
-                android:textStyle="bold"
-                android:text="@string/txt_precounitario_produto" />
+                android:text="@string/txt_precounitario_produto"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvPrecoUnitarioProduto"
-                android:layout_width="wrap_content"
+                android:id="@+id/etPrecoUnitarioProduto"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                />
+                android:layout_marginStart="5dp" />
         </LinearLayout>
     </ScrollView>
 

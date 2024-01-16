@@ -16,8 +16,10 @@ import com.android.volley.toolbox.Volley;
 import com.example.dentalcare.LoginActivity;
 import com.example.dentalcare.MenuMainActivity;
 import com.example.dentalcare.R;
+import com.example.dentalcare.listeners.DetalhesProdutoListener;
 import com.example.dentalcare.listeners.DetalhesServicoListener;
 import com.example.dentalcare.listeners.LoginListener;
+import com.example.dentalcare.listeners.PerfilListener;
 import com.example.dentalcare.listeners.ProdutosListener;
 import com.example.dentalcare.listeners.ServicosListener;
 import com.example.dentalcare.utils.JsonParser;
@@ -37,9 +39,11 @@ public class SingletonGestorApp {
     private static SingletonGestorApp instance = null;
     private static RequestQueue volleyQueue = null;
     private LoginListener loginListener;
+    private PerfilListener perfilListener;
     private ProdutosListener produtosListener;
     private ServicosListener servicosListener;
     private DetalhesServicoListener detalhesServicoListener;
+    private DetalhesProdutoListener detalhesProdutoListener;
     private BDHelper BD;
 
 
@@ -68,8 +72,16 @@ public class SingletonGestorApp {
         this.servicosListener = servicosListener;
     }
 
+    public void setPerfilListener(PerfilListener perfilListener) {
+        this.perfilListener = perfilListener;
+    }
+
     public void setDetalhesServicoListener(DetalhesServicoListener detalhesServicoListener) {
         this.detalhesServicoListener = detalhesServicoListener;
+    }
+
+    public void setDetalhesProdutoListener(DetalhesProdutoListener detalhesProdutoListener) {
+        this.detalhesProdutoListener = detalhesProdutoListener;
     }
 
     //Adiciona o IP no Singleton
@@ -86,6 +98,14 @@ public class SingletonGestorApp {
         for (Servico s : servicos) {
             if (s.getId() == id)
                 return s;
+        }
+        return null;
+    }
+
+    public Produto getProduto(int id) {
+        for (Produto p : produtos) {
+            if (p.getId() == id)
+                return p;
         }
         return null;
     }
@@ -175,7 +195,28 @@ public class SingletonGestorApp {
         }
     }
 
+/*
+    public void getPerfilAPI(final Context context, String token) {
+        if (!JsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+        } else {
+            StringRequest req = new StringRequest(Request.Method.GET, APIGetPerfil + "?access-token=" + token, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    perfils = PerfilJsonParser.parserJsonPerfil(response);
+                    if (perfilListener != null)
+                        perfilListener.onMostrarPerfil(perfils);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
 
-
+            volleyQueue.add(req);
+        }
+    }
+*/
 
 }
