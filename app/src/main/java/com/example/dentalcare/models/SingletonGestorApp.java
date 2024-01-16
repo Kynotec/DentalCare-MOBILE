@@ -179,7 +179,7 @@ public class SingletonGestorApp {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.d("TOKEN_DEBUG", "Access token: " + token);
-                    Log.d("API_REQUEST_DEBUG", "API URL: " + APIPerfilWithIP + "?access-token=" + token);
+                    Log.d("API_REQUEST_DEBUG", "API URL: " + APIPerfilWithIP + "/get-perfil?=" + token);
 
                     Toast.makeText(context, "Error during API request", Toast.LENGTH_LONG).show();
                 }
@@ -187,6 +187,39 @@ public class SingletonGestorApp {
 
             volleyQueue.add(req);
         }
+    }
+
+    public void editPerfilAPI(final Perfil perfil, final Context context, String token) {
+        if (!JsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, context.getString(R.string.sem_ligacao), Toast.LENGTH_SHORT).show();
+        } else {
+            final String APIPerfilWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/user";
+            StringRequest req = new StringRequest(Request.Method.PUT, APIPerfilWithIP + "atualizar-perfil?=" + token,  new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    if (perfilListener != null)
+                        perfilListener.onShowPerfil(perfil);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }) {
+                @Override
+                public Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("nome", perfil.getNome());
+                    params.put("telemovel", perfil.getTelefone() + "");
+                    params.put("nif", perfil.getNif() + "");
+                    params.put("codpostal", perfil.getCodigopostal() + "");
+                    params.put("morada", perfil.getMorada());
+                    return params;
+                }
+            };
+            volleyQueue.add(req);
+        }
+
     }
 
 

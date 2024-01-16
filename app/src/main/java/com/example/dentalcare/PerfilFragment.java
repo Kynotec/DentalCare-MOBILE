@@ -22,14 +22,15 @@ import android.widget.Toast;
 import com.example.dentalcare.listeners.PerfilListener;
 import com.example.dentalcare.models.Perfil;
 import com.example.dentalcare.models.SingletonGestorApp;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class PerfilFragment extends Fragment implements PerfilListener {
 
     private Perfil perfils;
     private String token;
     private FragmentManager fragmentManager;
-
-    private EditText etNome, etTelefone, etMorada, etNif, etCodigoPostal, etEmail;
+    private FloatingActionButton fabEditar;
+    private EditText etNome, etTelefone, etMorada, etNif, etCodigoPostal;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,7 +46,8 @@ public class PerfilFragment extends Fragment implements PerfilListener {
         etMorada = view.findViewById(R.id.etMorada);
         etNif = view.findViewById(R.id.etNif);
         etCodigoPostal = view.findViewById(R.id.etCodigoPostal);
-        etEmail = view.findViewById(R.id.etEmail);
+       // fabEditar = view.findViewById(R.id.fabEditar);
+
 
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);

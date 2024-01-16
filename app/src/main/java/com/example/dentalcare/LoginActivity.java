@@ -93,6 +93,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
             SharedPreferences sharedPreferences = getSharedPreferences("DADOS_USER", Context.MODE_PRIVATE);
             SharedPreferences.Editor editorUser = sharedPreferences.edit();
             editorUser.putString(MenuMainActivity.USERNAME, username);
+            editorUser.putString(MenuMainActivity.TOKEN, token);
             editorUser.apply();
 
             // Iniciar a MenuMainActivity
