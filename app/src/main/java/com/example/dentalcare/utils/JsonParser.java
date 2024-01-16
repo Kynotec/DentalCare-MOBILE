@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.example.dentalcare.models.Perfil;
 import com.example.dentalcare.models.Produto;
 import com.example.dentalcare.models.Servico;
 
@@ -136,6 +137,25 @@ public class JsonParser {
         return servico;
     }
 
+    //Perfil
+
+    public static Perfil parserJsonPerfil(String response) {
+        Perfil auxPerfil = null;
+        try {
+            JSONObject perfil = new JSONObject(response);
+            int user_id = perfil.getInt("user_id");
+            int telefone = perfil.getInt("telefone");
+            int nif = perfil.getInt("nif");
+            String nome = perfil.getString("nome");
+            String morada = perfil.getString("morada");
+            String codigopostal = perfil.getString("codigopostal");
+            auxPerfil = new Perfil(user_id, telefone, nif, nome, morada, codigopostal);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return auxPerfil;
+    }
 
 
 

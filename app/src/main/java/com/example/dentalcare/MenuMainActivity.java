@@ -22,9 +22,13 @@ import com.google.android.material.navigation.NavigationView;
 
 
 public class MenuMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private String token;
     private String username;
 
     public static final String OPERACAO ="OPERACAO";
+
+
 
     private NavigationView navigationView;
     private DrawerLayout drawer;
@@ -68,11 +72,13 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
     private void carregarCabecalho() {
         Intent intent = getIntent();
         username = intent.getStringExtra(LoginActivity.USERNAME);
+        token = getIntent().getStringExtra(TOKEN);
         SharedPreferences sharedPreferencesUsernameUser = getSharedPreferences(SHARED_USER, Context.MODE_PRIVATE);
 
-        if (username != null) {
+        if (username != null && token != null) {
             SharedPreferences.Editor editorUser = sharedPreferencesUsernameUser.edit();
             editorUser.putString(USERNAME, username);
+            editorUser.putString(TOKEN, token);
             editorUser.apply();
         } else{
             username = sharedPreferencesUsernameUser.getString(USERNAME, "Sem username");
@@ -96,6 +102,11 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
             fragment = new ListaServicosFragment();
             setTitle(item.getTitle());
             System.out.println("-->Nav Servicos");
+        }
+        else if (item.getItemId() == R.id.navItemDadosUtente) {
+            fragment = new PerfilFragment();
+            setTitle(item.getTitle());
+            System.out.println("-->Nav Dados Utente");
         }
         if (fragment != null)
             fragmentManager.beginTransaction().replace(R.id.contentFragment, fragment).commit();

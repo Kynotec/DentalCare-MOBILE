@@ -1,7 +1,9 @@
 package com.example.dentalcare.models;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Base64;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -36,6 +38,9 @@ public class SingletonGestorApp {
 
     private ArrayList<Produto> produtos;
     private ArrayList<Servico> servicos;
+
+    private Perfil perfils;
+
     private static SingletonGestorApp instance = null;
     private static RequestQueue volleyQueue = null;
     private LoginListener loginListener;
@@ -148,6 +153,42 @@ public class SingletonGestorApp {
         }
     }
 
+    public void getPerfilAPI(final Context context, String token) {
+        if(!JsonParser.isConnectionInternet(context)){
+            Toast.makeText(context, context.getString(R.string.sem_ligacao), Toast.LENGTH_SHORT).show();
+        }else {
+            if (token != null && !token.trim().isEmpty()) {
+                // Make the API request
+            } else {
+                // Handle the case when the token is null or empty
+                Log.e("API_ERROR", "Invalid access token");
+                // Add appropriate handling or notify the user
+            }
+
+
+            final String APIPerfilWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/user";
+            StringRequest req = new StringRequest(Request.Method.GET, APIPerfilWithIP + "/get-perfil?=" + token,  new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    perfils = JsonParser.parserJsonPerfil(response);
+                    if(perfilListener !=null)
+                        perfilListener.onShowPerfil(perfils);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("TOKEN_DEBUG", "Access token: " + token);
+                    Log.d("API_REQUEST_DEBUG", "API URL: " + APIPerfilWithIP + "?access-token=" + token);
+
+                    Toast.makeText(context, "Error during API request", Toast.LENGTH_LONG).show();
+                }
+            });
+
+            volleyQueue.add(req);
+        }
+    }
+
 
     public void getAllProdutosAPI(final Context context) {
         if(!JsonParser.isConnectionInternet(context)){
@@ -194,6 +235,8 @@ public class SingletonGestorApp {
             volleyQueue.add(jsonArrayRequest);
         }
     }
+
+
 
 /*
     public void getPerfilAPI(final Context context, String token) {
