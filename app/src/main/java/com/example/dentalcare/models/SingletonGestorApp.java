@@ -194,7 +194,7 @@ public class SingletonGestorApp {
             Toast.makeText(context, context.getString(R.string.sem_ligacao), Toast.LENGTH_SHORT).show();
         } else {
             final String APIPerfilWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/user";
-            StringRequest req = new StringRequest(Request.Method.PUT, APIPerfilWithIP + "atualizar-perfil?=" + token,  new Response.Listener<String>() {
+            StringRequest req = new StringRequest(Request.Method.PUT, APIPerfilWithIP + "/atualizar-perfil?=" + token,  new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     if (perfilListener != null)
@@ -210,9 +210,9 @@ public class SingletonGestorApp {
                 public Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
                     params.put("nome", perfil.getNome());
-                    params.put("telemovel", perfil.getTelefone() + "");
+                    params.put("telefone", perfil.getTelefone() + "");
                     params.put("nif", perfil.getNif() + "");
-                    params.put("codpostal", perfil.getCodigopostal() + "");
+                    params.put("codigopostal", perfil.getCodigopostal() + "");
                     params.put("morada", perfil.getMorada());
                     return params;
                 }

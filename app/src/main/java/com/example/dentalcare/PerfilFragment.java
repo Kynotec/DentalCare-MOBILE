@@ -22,15 +22,15 @@ import android.widget.Toast;
 import com.example.dentalcare.listeners.PerfilListener;
 import com.example.dentalcare.models.Perfil;
 import com.example.dentalcare.models.SingletonGestorApp;
+import com.example.dentalcare.utils.JsonParser;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class PerfilFragment extends Fragment implements PerfilListener {
 
     private Perfil perfils;
     private String token;
-    private FragmentManager fragmentManager;
     private FloatingActionButton fabEditar;
-    private EditText etNome, etTelefone, etMorada, etNif, etCodigoPostal;
+    private TextView tvNomeUntente, tvTelemovelUtente, tvNIFUtente, tvMoradaUtente, tvCodigoPostalUtente;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,17 +41,28 @@ public class PerfilFragment extends Fragment implements PerfilListener {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(MenuMainActivity.SHARED_USER, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(MenuMainActivity.TOKEN, null);
 
-        etNome = view.findViewById(R.id.etNome);
-        etTelefone = view.findViewById(R.id.etTelefone);
-        etMorada = view.findViewById(R.id.etMorada);
-        etNif = view.findViewById(R.id.etNif);
-        etCodigoPostal = view.findViewById(R.id.etCodigoPostal);
-       // fabEditar = view.findViewById(R.id.fabEditar);
-
+        tvNomeUntente = view.findViewById(R.id.tvNomeUntente);
+        tvTelemovelUtente = view.findViewById(R.id.tvTelemovelUtente);
+        tvNIFUtente = view.findViewById(R.id.tvNIFUtente);
+        tvMoradaUtente = view.findViewById(R.id.tvMoradaUtente);
+        tvCodigoPostalUtente = view.findViewById(R.id.tvCodigoPostalUtente);
+       fabEditar = view.findViewById(R.id.edit);
 
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 
+        fabEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!JsonParser.isConnectionInternet(getContext())){
+                    Toast.makeText(getContext(), getContext().getString(R.string.sem_ligacao), Toast.LENGTH_SHORT).show();
+                }else {
+                    FragmentTransaction fr = getFragmentManager().beginTransaction();
+                    fr.replace(R.id.contentFragment, new EditPerfilFragment());
+                    fr.commit();
+                }
+            }
+        });
 
         SingletonGestorApp.getInstance(getContext()).setPerfilListener(this);
         SingletonGestorApp.getInstance(getContext()).getPerfilAPI(getContext(), token);
@@ -64,11 +75,11 @@ public class PerfilFragment extends Fragment implements PerfilListener {
     public void onShowPerfil(Perfil perfil) {
 
         if (perfil != null) {
-            etNome.setText(perfil.getNome());
-            etTelefone.setText(String.valueOf(perfil.getTelefone()));
-            etNif.setText(String.valueOf(perfil.getNif()));
-            etMorada.setText(perfil.getMorada());
-            etCodigoPostal.setText(perfil.getCodigopostal());
+            tvNomeUntente.setText(perfil.getNome());
+            tvTelemovelUtente.setText(String.valueOf(perfil.getTelefone()));
+            tvNIFUtente.setText(String.valueOf(perfil.getNif()));
+            tvMoradaUtente.setText(perfil.getMorada());
+            tvCodigoPostalUtente.setText(perfil.getCodigopostal());
 
             perfils = perfil;
         }

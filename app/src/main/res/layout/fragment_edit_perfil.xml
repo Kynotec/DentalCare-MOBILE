@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".EditPerfilFragment"
+    android:background="@color/backgroundUtente">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="715dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:src="@drawable/person" />
+
+
+            <LinearLayout
+                android:layout_width="361dp"
+                android:layout_height="610dp"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_nome"
+                        android:textColor="@color/header"
+                        android:textSize="13sp" />
+
+                    <EditText
+                        android:id="@+id/etNomeUtente"
+                        android:layout_width="330dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:hint="Nome"
+                        android:textColor="#FFFF"
+                        android:textColorHint="@color/grey"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_telefone"
+                        android:textColor="@color/header"
+                        android:textSize="13sp" />
+
+                    <EditText
+                        android:id="@+id/etTelefoneUtente"
+                        android:layout_width="330dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:hint="Telemóvel"
+                        android:inputType="number"
+                        android:textColor="#FFFF"
+                        android:textColorHint="@color/grey"
+                        android:textSize="16sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_nif"
+                        android:textColor="@color/header"
+                        android:textSize="13sp" />
+
+                    <EditText
+                        android:id="@+id/etNIFUtente"
+                        android:layout_width="330dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:hint="NIF"
+                        android:inputType="number"
+                        android:textColor="#FFFF"
+                        android:textColorHint="@color/grey"
+                        android:textSize="16sp" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_morada"
+                        android:textColor="@color/header"
+                        android:textSize="13sp" />
+
+                    <EditText
+                        android:id="@+id/etMoradaUtente"
+                        android:layout_width="330dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:hint="Morada"
+                        android:textColor="#FFFF"
+                        android:textColorHint="@color/grey"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Código de Postal"
+                        android:textColor="@color/header"
+                        android:textSize="13sp" />
+
+                    <EditText
+                        android:id="@+id/etCodPostalUtente"
+                        android:layout_width="330dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:hint="Código de Postal"
+                        android:textColor="#FFFF"
+                        android:textColorHint="@color/grey"
+                        android:textSize="16sp" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabGuardar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        android:clickable="true"
+        app:backgroundTint="#C33FA3B5"
+        app:srcCompat="@drawable/ic_action_save" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

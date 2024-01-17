@@ -30,7 +30,7 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
 
 
 
-    private NavigationView navigationView;
+    public NavigationView navigationView;
     private DrawerLayout drawer;
     public static final String USERNAME = "USER"; // NOME
     public static final String SHARED_USER = "DADOS_USER"; // CHAVE
