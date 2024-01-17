@@ -108,6 +108,11 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
             setTitle(item.getTitle());
             System.out.println("-->Nav Dados Utente");
         }
+        else if (item.getItemId() == R.id.navItemDiagnosticos) {
+            fragment = new ListaDiagnosticosFragment();
+            setTitle(item.getTitle());
+            System.out.println("-->Nav Diagnosticos Utente");
+        }
         if (fragment != null)
             fragmentManager.beginTransaction().replace(R.id.contentFragment, fragment).commit();
 

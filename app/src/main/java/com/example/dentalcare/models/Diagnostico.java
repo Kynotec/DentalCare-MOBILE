@@ -7,13 +7,14 @@ public class Diagnostico {
 
     private int id, profile_id, consulta_id;
 
-    private String descricao;
+    private String descricao,data,hora;
+    /*
 
     private LocalDate data;
 
-    private LocalTime hora;
+    private LocalTime hora;*/
 
-    public Diagnostico(int id,int profile_id, int consulta_id, String descricao, LocalDate data, LocalTime hora) {
+    public Diagnostico(int id,int profile_id, int consulta_id, String descricao, String data, String hora) {
         this.id = id;
         this.descricao = descricao;
         this.data = data;
@@ -39,19 +40,16 @@ public class Diagnostico {
         this.descricao = descricao;
     }
 
-    public LocalDate getData() {
+    public String getData() {
         return data;
     }
-
-    public void setData(LocalDate data) {
+    public void setData(String data) {
         this.data = data;
     }
-
-    public LocalTime getHora() {
+    public String getHora() {
         return hora;
     }
-
-    public void setHora(LocalTime hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 

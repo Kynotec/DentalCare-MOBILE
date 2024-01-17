@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.example.dentalcare.models.Diagnostico;
 import com.example.dentalcare.models.Perfil;
 import com.example.dentalcare.models.Produto;
 import com.example.dentalcare.models.Servico;
@@ -157,7 +158,32 @@ public class JsonParser {
         return auxPerfil;
     }
 
+    //Diagnosticos
 
+
+
+    public static ArrayList<Diagnostico> parserJsonDiagnosticos(JSONArray response) {
+        ArrayList<Diagnostico> diagnosticos = new ArrayList<>();
+        try {
+            for (int i = 0; i < response.length(); i++) {
+
+                JSONObject diagnosticoJson = (JSONObject) response.get(i);
+                int id = diagnosticoJson.getInt("id");
+                String data = diagnosticoJson.getString("data");
+                String hora = diagnosticoJson.getString("hora");
+                String descricao = diagnosticoJson.getString("descricao");
+                int profile_id = diagnosticoJson.getInt("profile_id");
+                int consulta_id = diagnosticoJson.getInt("consulta_id");
+
+                Diagnostico diagnostico = new Diagnostico(id,profile_id,consulta_id,descricao,data,hora);
+                diagnosticos.add(diagnostico);
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        return diagnosticos;
+    }
 
     public static Boolean isConnectionInternet(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

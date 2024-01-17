@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class DiagnosticoActivity extends AppCompatActivity {
+public class DetalhesDiagnosticosActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diagnostico);
+        setContentView(R.layout.activity_detalhes_diagnosticos);
     }
 }

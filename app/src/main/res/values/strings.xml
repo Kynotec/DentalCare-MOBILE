@@ -24,7 +24,7 @@
     <string name="txt_email">E-mail</string>
     <string name="txt_password">Password</string>
     <string name="txt_data">Data</string>
-    <string name="txt_descricao_diagnostico">Descrição do Diagnóstico</string>
+    <string name="txt_descricao_diagnostico">Descrição do Diagnóstico:</string>
     <string name="txt_subtotal">SubTotal:</string>
     <string name="txt_n_fatura">NºFatura</string>
     <string name="txt_ivatotal">Iva Total:</string>

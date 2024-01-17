@@ -1,7 +1,6 @@
 package com.example.dentalcare.models;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -15,11 +14,10 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.dentalcare.LoginActivity;
-import com.example.dentalcare.MenuMainActivity;
 import com.example.dentalcare.R;
 import com.example.dentalcare.listeners.DetalhesProdutoListener;
 import com.example.dentalcare.listeners.DetalhesServicoListener;
+import com.example.dentalcare.listeners.DiagnosticoListener;
 import com.example.dentalcare.listeners.LoginListener;
 import com.example.dentalcare.listeners.PerfilListener;
 import com.example.dentalcare.listeners.ProdutosListener;
@@ -41,12 +39,15 @@ public class SingletonGestorApp {
 
     private Perfil perfils;
 
+    private ArrayList<Diagnostico> diagnosticos;
+
     private static SingletonGestorApp instance = null;
     private static RequestQueue volleyQueue = null;
     private LoginListener loginListener;
     private PerfilListener perfilListener;
     private ProdutosListener produtosListener;
     private ServicosListener servicosListener;
+    private DiagnosticoListener diagnosticosListener;
     private DetalhesServicoListener detalhesServicoListener;
     private DetalhesProdutoListener detalhesProdutoListener;
     private BDHelper BD;
@@ -75,6 +76,10 @@ public class SingletonGestorApp {
     }
     public void setServicosListener(ServicosListener servicosListener){
         this.servicosListener = servicosListener;
+    }
+
+    public void setDiagnosticosListener(DiagnosticoListener diagnosticosListener){
+        this.diagnosticosListener = diagnosticosListener;
     }
 
     public void setPerfilListener(PerfilListener perfilListener) {
@@ -269,19 +274,22 @@ public class SingletonGestorApp {
         }
     }
 
-
-
-/*
-    public void getPerfilAPI(final Context context, String token) {
+    public void getAllDiagnosticosAPI(final Context context, String token) {
         if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
         } else {
-            StringRequest req = new StringRequest(Request.Method.GET, APIGetPerfil + "?access-token=" + token, new Response.Listener<String>() {
+
+            final String APIDiagnosticoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/diagnostico";
+            String url = APIDiagnosticoWithIP + "/get-perfil-diagnostico?token=" + token;
+
+            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
                 @Override
-                public void onResponse(String response) {
-                    perfils = PerfilJsonParser.parserJsonPerfil(response);
-                    if (perfilListener != null)
-                        perfilListener.onMostrarPerfil(perfils);
+                public void onResponse(JSONArray response) {
+                    diagnosticos = JsonParser.parserJsonDiagnosticos(response);
+
+                    if (diagnosticosListener != null) {
+                        diagnosticosListener.onRefreshListaDiagnosticos(diagnosticos);
+                    }
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -293,6 +301,6 @@ public class SingletonGestorApp {
             volleyQueue.add(req);
         }
     }
-*/
+
 
 }

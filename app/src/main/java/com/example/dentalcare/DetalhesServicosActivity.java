@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -33,6 +34,7 @@ public class DetalhesServicosActivity extends AppCompatActivity implements Detal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_servicos);
 
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         int id = getIntent().getIntExtra("ID_SERVICO", 0);
         servico = SingletonGestorApp.getInstance(getApplicationContext()).getServico(id);
 
@@ -63,4 +65,15 @@ public class DetalhesServicosActivity extends AppCompatActivity implements Detal
         setResult(RESULT_OK,intent);
         finish();
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }
