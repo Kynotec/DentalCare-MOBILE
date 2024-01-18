@@ -58,7 +58,7 @@
                         android:text="@string/txt_data" />
 
                     <TextView
-                        android:id="@+id/tvHoraMarcacao"
+                        android:id="@+id/tvDataFatura"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="5dp" />
@@ -76,7 +76,7 @@
                         android:text="@string/txt_estado" />
 
                     <TextView
-                        android:id="@+id/tvDataMarcacao"
+                        android:id="@+id/tvEstadoFatura"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="5dp" />
@@ -94,7 +94,7 @@
                         android:text="@string/txt_ivatotal" />
 
                     <TextView
-                        android:id="@+id/tvService"
+                        android:id="@+id/tvIvaTotalFatura"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="5dp" />
@@ -112,7 +112,7 @@
                         android:text="@string/txt_subtotal" />
 
                     <TextView
-                        android:id="@+id/tvMedico"
+                        android:id="@+id/tvSubTotalFatura"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="5dp" />
@@ -130,7 +130,7 @@
                         android:text="@string/txt_valortotal" />
 
                     <TextView
-                        android:id="@+id/tvValorTotal"
+                        android:id="@+id/tvValorTotalFatura"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="5dp" />

@@ -26,7 +26,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvHoraMarcacao"
+                android:id="@+id/tvDataFatura"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp" />
@@ -45,7 +45,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvDataMarcacao"
+                android:id="@+id/tvEstadoFatura"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp" />
@@ -66,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
-                android:id="@+id/tvService"/>
+                android:id="@+id/tvIvaTotalFatura"/>
         </LinearLayout>
 
         <LinearLayout
@@ -84,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
-                android:id="@+id/tvMedico"/>
+                android:id="@+id/tvSubTotalFatura"/>
 
         </LinearLayout>
 
@@ -100,7 +100,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvValorTotal"
+                android:id="@+id/tvValorTotalFatura"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp" />
@@ -114,13 +114,7 @@
         android:orientation="horizontal">
 
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:src="@drawable/ic_action_view" />
-
     </LinearLayout>
+
 
 </LinearLayout>

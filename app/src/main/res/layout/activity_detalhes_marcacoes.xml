@@ -46,7 +46,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvHoraMarcacao"
+                        android:id="@+id/tvDataFatura"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="5dp" />
@@ -65,7 +65,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvDataMarcacao"
+                        android:id="@+id/tvEstadoFatura"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="5dp" />
@@ -84,7 +84,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvService"
+                        android:id="@+id/tvIvaTotalFatura"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="5dp" />
@@ -103,7 +103,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvMedico"
+                        android:id="@+id/tvSubTotalFatura"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="5dp" />

@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.example.dentalcare.models.Diagnostico;
+import com.example.dentalcare.models.Fatura;
 import com.example.dentalcare.models.Perfil;
 import com.example.dentalcare.models.Produto;
 import com.example.dentalcare.models.Servico;
@@ -185,9 +186,43 @@ public class JsonParser {
         return diagnosticos;
     }
 
+    //Faturas
+
+
+
+    public static ArrayList<Fatura> parserJsonFaturas(JSONArray response) {
+        ArrayList<Fatura> faturas = new ArrayList<>();
+        try {
+            for (int i = 0; i < response.length(); i++) {
+
+                JSONObject faturaJson = (JSONObject) response.get(i);
+                int id = faturaJson.getInt("id");
+                String data = faturaJson.getString("data");
+                String valortotalString = faturaJson.getString("valortotal");
+                double valortotal= Double.parseDouble(valortotalString);
+                String ivatotalString = faturaJson.getString("ivatotal");
+                double ivatotal= Double.parseDouble(ivatotalString);
+                String subtotalString = faturaJson.getString("subtotal");
+                double subtotal= Double.parseDouble(subtotalString);
+                String estado = faturaJson.getString("estado");
+                int profile_id = faturaJson.getInt("profile_id");
+
+
+                Fatura fatura = new Fatura(id,profile_id,data,valortotal,ivatotal,subtotal,estado);
+                faturas.add(fatura);
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        return faturas;
+    }
+
     public static Boolean isConnectionInternet(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
         return ni != null && ni.isConnected();
     }
+
+
 }

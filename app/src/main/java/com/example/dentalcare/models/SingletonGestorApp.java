@@ -18,6 +18,7 @@ import com.example.dentalcare.R;
 import com.example.dentalcare.listeners.DetalhesProdutoListener;
 import com.example.dentalcare.listeners.DetalhesServicoListener;
 import com.example.dentalcare.listeners.DiagnosticoListener;
+import com.example.dentalcare.listeners.FaturaListener;
 import com.example.dentalcare.listeners.LoginListener;
 import com.example.dentalcare.listeners.PerfilListener;
 import com.example.dentalcare.listeners.ProdutosListener;
@@ -41,6 +42,8 @@ public class SingletonGestorApp {
 
     private ArrayList<Diagnostico> diagnosticos;
 
+    private ArrayList<Fatura> faturas;
+
     private static SingletonGestorApp instance = null;
     private static RequestQueue volleyQueue = null;
     private LoginListener loginListener;
@@ -48,6 +51,7 @@ public class SingletonGestorApp {
     private ProdutosListener produtosListener;
     private ServicosListener servicosListener;
     private DiagnosticoListener diagnosticosListener;
+    private FaturaListener faturasListener;
     private DetalhesServicoListener detalhesServicoListener;
     private DetalhesProdutoListener detalhesProdutoListener;
     private BDHelper BD;
@@ -80,6 +84,10 @@ public class SingletonGestorApp {
 
     public void setDiagnosticosListener(DiagnosticoListener diagnosticosListener){
         this.diagnosticosListener = diagnosticosListener;
+    }
+
+    public void setFaturasListener(FaturaListener faturasListener){
+        this.faturasListener = faturasListener;
     }
 
     public void setPerfilListener(PerfilListener perfilListener) {
@@ -289,6 +297,35 @@ public class SingletonGestorApp {
 
                     if (diagnosticosListener != null) {
                         diagnosticosListener.onRefreshListaDiagnosticos(diagnosticos);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+            volleyQueue.add(req);
+        }
+    }
+
+
+    public void getAllFaturasAPI(final Context context, String token) {
+        if (!JsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+        } else {
+
+            final String APIFaturaWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/fatura";
+            String url = APIFaturaWithIP + "/get-perfil-fatura?token=" + token;
+
+            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    faturas = JsonParser.parserJsonFaturas(response);
+
+                    if (faturasListener != null) {
+                        faturasListener.onRefreshListaFaturas(faturas);
                     }
                 }
             }, new Response.ErrorListener() {

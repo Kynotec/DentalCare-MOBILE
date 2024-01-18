@@ -6,13 +6,13 @@ public class Fatura {
 
     private int id, profile_id;
 
-    private LocalDate data;
+    private String data;
 
     private double valortotal,ivatotal,subtotal;
 
     private String estado;
 
-    public Fatura(int id,int profile_id, LocalDate data, double valortotal, double ivatotal, double subtotal, String estado) {
+    public Fatura(int id,int profile_id, String data, double valortotal, double ivatotal, double subtotal, String estado) {
         this.id = id;
         this.profile_id = profile_id;
         this.data = data;
@@ -29,11 +29,11 @@ public class Fatura {
         this.id = id;
     }
 
-    public LocalDate getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(String data) {
         this.data = data;
     }
 
@@ -68,4 +68,8 @@ public class Fatura {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public int getProfile_id() {return profile_id;}
+
+    public void setProfile_id(int profile_id) {this.profile_id = profile_id;}
 }
