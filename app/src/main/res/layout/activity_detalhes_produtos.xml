@@ -11,19 +11,26 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                app:titleTextColor="?android:textColorPrimary" />
             <ImageView
                 android:id="@+id/imgProduto"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.8"
                 app:srcCompat="@drawable/dentalcare_logo" />
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="80dp" />
@@ -39,8 +46,7 @@
                 android:id="@+id/etNomeProduto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                />
+                android:layout_marginStart="5dp" />
 
 
             <TextView
@@ -63,12 +69,82 @@
                 android:text="@string/txt_precounitario_produto"
                 android:textStyle="bold" />
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
             <TextView
                 android:id="@+id/etPrecoUnitarioProduto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:text="@string/txt_stock"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvStock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnMinus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:onClick="onCLickChangeQuantity"
+                    app:srcCompat="@drawable/ic_action_remove"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <EditText
+                    android:id="@+id/numQuantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:editable="true"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:numeric="integer"
+                    android:phoneNumber="false"
+                    android:text="1"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <ImageButton
+                    android:id="@+id/btnMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:onClick="onCLickChangeQuantity"
+                    app:srcCompat="@drawable/ic_action_add"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <Button
+                    android:id="@+id/btnAddCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:onClick="onClickAddCart"
+                    android:text="Adicionar" />
+            </LinearLayout>
         </LinearLayout>
+
+
     </ScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

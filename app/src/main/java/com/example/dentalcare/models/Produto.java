@@ -9,11 +9,23 @@ public class Produto {
     private double precounitario;
 
 
-    public Produto(int id, String nome, String descricao, double precounitario) {
+    private int stock;
+
+
+    public Produto(int id, String nome, String descricao, double precounitario,int stock) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.precounitario = precounitario;
+        this.stock = stock;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public int getId() {

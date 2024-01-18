@@ -6,14 +6,20 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
+
 
 import com.example.dentalcare.adaptadores.ListaProdutosAdaptador;
 import com.example.dentalcare.adaptadores.ListaServicosAdaptador;
@@ -29,6 +35,7 @@ public class ListaServicosFragment extends Fragment implements ServicosListener 
 
     private ListView lvservicos;
 
+    private SearchView searchView;
     public static final int ACT_DETAlHES =1;
 
     public ListaServicosFragment() {
@@ -46,7 +53,7 @@ public class ListaServicosFragment extends Fragment implements ServicosListener 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), DetalhesServicosActivity.class);
-                intent.putExtra("ID_SERVICO", (int) id);
+                intent.putExtra(DetalhesServicosActivity.ID_SERVICO, (int) id);
                 startActivityForResult(intent, ACT_DETAlHES);
             }
         });
@@ -56,6 +63,7 @@ public class ListaServicosFragment extends Fragment implements ServicosListener 
 
         return view;
     }
+
 
 
     @Override

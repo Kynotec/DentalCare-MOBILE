@@ -62,12 +62,13 @@ public class JsonParser {
 
                 JSONObject produtoJson = (JSONObject) response.get(i);
                 int id = produtoJson.getInt("id");
+                int stock = produtoJson.getInt("stock");
                 String nome = produtoJson.getString("nome");
                 String descricao = produtoJson.getString("descricao");
                 String precounitarioString = produtoJson.getString("precounitario");
                 double precounitario= Double.parseDouble(precounitarioString);
 
-                Produto produto = new Produto(id,nome,descricao,precounitario);
+                Produto produto = new Produto(id,nome,descricao,precounitario,stock);
                 produtos.add(produto);
             }
         } catch (JSONException e) {
@@ -82,11 +83,12 @@ public class JsonParser {
         try {
             JSONObject produtoJson = new JSONObject(response);
             int id = produtoJson.getInt("id");
+            int stock = produtoJson.getInt("stock");
             String nome = produtoJson.getString("nome");
             String descricao = produtoJson.getString("descricao");
             String precounitarioString = produtoJson.getString("precounitario");
             double precounitario= Double.parseDouble(precounitarioString);
-            produto = new Produto(id,nome,descricao,precounitario);
+            produto = new Produto(id,nome,descricao,precounitario,stock);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }

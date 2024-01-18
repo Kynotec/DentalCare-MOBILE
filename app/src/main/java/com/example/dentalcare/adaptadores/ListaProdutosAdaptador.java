@@ -1,6 +1,7 @@
 package com.example.dentalcare.adaptadores;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,13 +64,13 @@ public class ListaProdutosAdaptador extends BaseAdapter {
     }
 
         private class ViewHolderLista{
-            private TextView tvNomeProduto, tvDescricaoProduto, tvPrecoUnitarioProduto;
+            private TextView tvNomeProduto,tvStock, tvDescricaoProduto, tvPrecoUnitarioProduto;
           //  private ImageView imgCapa;
             public ViewHolderLista(View view){
                 tvNomeProduto=view.findViewById(R.id.tvNomeProduto);
                 tvDescricaoProduto=view.findViewById(R.id.tvDescricaoProduto);
                 tvPrecoUnitarioProduto=view.findViewById(R.id.tvPrecoUnitarioProduto);
-
+                tvStock = view.findViewById(R.id.tvStock);
                 //imgCapa = view.findViewById(R.id.imgCapa);
             }
 
@@ -77,7 +78,13 @@ public class ListaProdutosAdaptador extends BaseAdapter {
                 tvNomeProduto.setText(produto.getNome());
                 tvDescricaoProduto.setText(produto.getDescricao());
                 tvPrecoUnitarioProduto.setText(String.format("%.2f€", produto.getPrecounitario()));
-
+                if (produto.getStock() != 0) {
+                    tvStock.setText(R.string.emStock);
+                    tvStock.setTextColor(Color.parseColor("#048000"));
+                } else {
+                    tvStock.setText(R.string.foraStock);
+                    tvStock.setTextColor(Color.parseColor("#b00200"));
+                }
                 //imgCapa.setImageResource(livro.getCapa());
                 /*
                 Glide.with(context)

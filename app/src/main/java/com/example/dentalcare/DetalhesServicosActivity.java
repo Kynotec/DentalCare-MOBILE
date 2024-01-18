@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class DetalhesServicosActivity extends AppCompatActivity implements DetalhesServicoListener {
 
-
+    public static final String ID_SERVICO = "id";
     private TextView etNomeServico, etTaxaIva, etPrecoServico;
     private Servico servico;
 
@@ -40,7 +40,8 @@ public class DetalhesServicosActivity extends AppCompatActivity implements Detal
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        int id = getIntent().getIntExtra("ID_SERVICO", 0);
+        int id = getIntent().getIntExtra(ID_SERVICO, 0);
+
         servico = SingletonGestorApp.getInstance(getApplicationContext()).getServico(id);
 
         etNomeServico = findViewById(R.id.etNomeServico);

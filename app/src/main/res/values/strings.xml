@@ -46,10 +46,16 @@
     <string name="sem_ligacao">Sem ligação à internet</string>
     <string name="ndOpen">open</string>
     <string name="ndClose">close</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="txt_null">null\n</string>
     <string name="txt_nfatura">Fatura nº:</string>
     <string name="txt_data_consulta">Data da Consulta:</string>
+    <string name="txt_definicoes">Definições\n</string>
+    <string name="txt_logout">Logout\n</string>
+    <string name="txt_adicionar_carrinho">Adicionar ao Carrinho</string>
+    <string name="emStock">Em Stock</string>
+    <string name="foraStock">Fora de Stock</string>
+    <string name="txt_stock">Estado do Produto</string>
+    <string name="quantidade_stock_invalido">Quantidade Stock Invalido</string>
+
 
 </resources>

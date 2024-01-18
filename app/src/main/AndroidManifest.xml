@@ -41,7 +41,13 @@
             android:theme="@style/Theme.DentalCare" />
         <activity
             android:name=".DetalhesProdutosActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.DentalCare"
+            android:parentActivityName=".MenuMainActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".DetalhesProdutosOfflineActivity"
             android:exported="false"

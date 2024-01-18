@@ -57,4 +57,15 @@
                 android:icon="@drawable/ic_action_diagnostico"/>
         </menu>
     </item>
+
+    <item android:title="@string/txt_definicoes">
+        <menu>
+            <item
+                android:id="@+id/navItemLogout"
+                android:title="@string/txt_logout"
+                android:icon="@drawable/ic_action_logout"/>
+
+        </menu>
+
+    </item>
 </menu>
