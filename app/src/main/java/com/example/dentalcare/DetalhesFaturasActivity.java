@@ -1,6 +1,7 @@
 package com.example.dentalcare;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +22,11 @@ public class DetalhesFaturasActivity extends AppCompatActivity implements Detalh
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_faturas);
 
-        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         int id = getIntent().getIntExtra("ID_FATURA", 0);
         fatura = SingletonGestorApp.getInstance(getApplicationContext()).getFatura(id);
         tvNFatura = findViewById(R.id.tvNFatura);

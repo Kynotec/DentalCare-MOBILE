@@ -60,7 +60,7 @@ public class ListaDiagnosticosAdaptador extends BaseAdapter {
     }
 
     private class ViewHolderLista{
-        private TextView tvDataDiagnostico, tvHoraDiagnostico, tvDescricaoDiagnostico;
+        private TextView tvDataDiagnostico, tvHoraDiagnostico, tvDescricaoDiagnostico, tvDataConsulta;
         public ViewHolderLista(View view){
             tvDataDiagnostico=view.findViewById(R.id.tvDataDiagnostico);
             tvHoraDiagnostico=view.findViewById(R.id.tvHoraDiagnostico);

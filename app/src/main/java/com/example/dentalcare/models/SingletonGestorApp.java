@@ -1,6 +1,7 @@
 package com.example.dentalcare.models;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.dentalcare.DetalhesFaturasActivity;
 import com.example.dentalcare.R;
+import com.example.dentalcare.listeners.DetalhesDiagnosticoListener;
 import com.example.dentalcare.listeners.DetalhesProdutoListener;
 import com.example.dentalcare.listeners.DetalhesServicoListener;
 import com.example.dentalcare.listeners.DiagnosticoListener;
@@ -56,6 +58,7 @@ public class SingletonGestorApp {
     private DetalhesServicoListener detalhesServicoListener;
     private DetalhesProdutoListener detalhesProdutoListener;
     private DetalhesFaturasActivity detalhesFaturaListener;
+    private DetalhesDiagnosticoListener detalhesDiagnosticoListener;
     private BDHelper BD;
 
 
@@ -99,7 +102,9 @@ public class SingletonGestorApp {
     public void setDetalhesServicoListener(DetalhesServicoListener detalhesServicoListener) {
         this.detalhesServicoListener = detalhesServicoListener;
     }
-
+    public void setDetalhesDiagnosticoListener(DetalhesDiagnosticoListener detalhesDiagnosticoListener) {
+        this.detalhesDiagnosticoListener = detalhesDiagnosticoListener;
+    }
     public void setDetalhesProdutoListener(DetalhesProdutoListener detalhesProdutoListener) {
         this.detalhesProdutoListener = detalhesProdutoListener;
     }
@@ -133,11 +138,18 @@ public class SingletonGestorApp {
         }
         return null;
     }
-
     public Fatura getFatura(int id) {
         for (Fatura s : faturas) {
             if (s.getId() == id)
                 return s;
+        }
+        return null;
+    }
+
+    public Diagnostico getDiagnostico(int id) {
+        for (Diagnostico d : diagnosticos) {
+            if (d.getId() == id)
+                return d;
         }
         return null;
     }
@@ -324,8 +336,6 @@ public class SingletonGestorApp {
             volleyQueue.add(req);
         }
     }
-
-
     public void getAllFaturasAPI(final Context context, String token) {
         if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
@@ -353,6 +363,5 @@ public class SingletonGestorApp {
             volleyQueue.add(req);
         }
     }
-
 
 }

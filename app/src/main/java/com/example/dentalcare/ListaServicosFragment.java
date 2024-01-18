@@ -1,5 +1,7 @@
 package com.example.dentalcare;
 
+import static android.content.Intent.getIntent;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;

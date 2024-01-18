@@ -2,6 +2,7 @@ package com.example.dentalcare;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -34,7 +35,11 @@ public class DetalhesServicosActivity extends AppCompatActivity implements Detal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_servicos);
 
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         int id = getIntent().getIntExtra("ID_SERVICO", 0);
         servico = SingletonGestorApp.getInstance(getApplicationContext()).getServico(id);
 
@@ -54,8 +59,7 @@ public class DetalhesServicosActivity extends AppCompatActivity implements Detal
     private void carregarServico() {
         etNomeServico.setText(servico.getNome());
         //etTaxaIva.setText(servico.getIva_id());
-        etPrecoServico.setText(String.valueOf(servico.getPreco()));
-
+        etPrecoServico.setText(String.format("%.2f€", servico.getPreco()));
     }
 
     @Override
@@ -65,15 +69,15 @@ public class DetalhesServicosActivity extends AppCompatActivity implements Detal
         setResult(RESULT_OK,intent);
         finish();
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
+
 
 }
