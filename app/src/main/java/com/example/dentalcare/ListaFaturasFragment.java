@@ -50,7 +50,7 @@ public class ListaFaturasFragment extends Fragment implements FaturaListener {
         lvfaturas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent intent = new Intent(getContext(), DetalhesDiagnosticosActivity.class);
+                Intent intent = new Intent(getContext(), DetalhesFaturasActivity.class);
                 intent.putExtra("ID_FATURA", (int) id);
                 startActivityForResult(intent, ACT_DETAlHES);
             }

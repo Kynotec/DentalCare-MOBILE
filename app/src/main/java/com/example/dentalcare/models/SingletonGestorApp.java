@@ -14,6 +14,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.dentalcare.DetalhesFaturasActivity;
 import com.example.dentalcare.R;
 import com.example.dentalcare.listeners.DetalhesProdutoListener;
 import com.example.dentalcare.listeners.DetalhesServicoListener;
@@ -54,6 +55,7 @@ public class SingletonGestorApp {
     private FaturaListener faturasListener;
     private DetalhesServicoListener detalhesServicoListener;
     private DetalhesProdutoListener detalhesProdutoListener;
+    private DetalhesFaturasActivity detalhesFaturaListener;
     private BDHelper BD;
 
 
@@ -102,6 +104,10 @@ public class SingletonGestorApp {
         this.detalhesProdutoListener = detalhesProdutoListener;
     }
 
+    public void setDetalhesFaturaListener(DetalhesFaturasActivity detalhesFaturaListener) {
+        this.detalhesFaturaListener = detalhesFaturaListener;
+    }
+
     //Adiciona o IP no Singleton
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
@@ -127,6 +133,15 @@ public class SingletonGestorApp {
         }
         return null;
     }
+
+    public Fatura getFatura(int id) {
+        for (Fatura s : faturas) {
+            if (s.getId() == id)
+                return s;
+        }
+        return null;
+    }
+
     public void loginAPI(final String username, final String password, final Context context) {
         // Obter o endereço IP armazenado nas SharedPreferences
         String ipAddress = SingletonGestorApp.getInstance(context).getIpAddress();
