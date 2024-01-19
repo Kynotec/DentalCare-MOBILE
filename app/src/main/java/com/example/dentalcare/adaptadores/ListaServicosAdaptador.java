@@ -65,16 +65,15 @@ public class ListaServicosAdaptador extends BaseAdapter {
         //  private ImageView imgCapa;
         public ViewHolderLista(View view){
             tvNome=view.findViewById(R.id.tvNomeServico);
-            //tvTaxaIva=view.findViewById(R.id.tvTaxaIva);
-            tvPrecoServico=view.findViewById(R.id.tvPrecoServico);
             tvTaxaIva=view.findViewById(R.id.tvTaxaIva);
+            tvPrecoServico=view.findViewById(R.id.tvPrecoServico);
 
             //imgCapa = view.findViewById(R.id.imgCapa);
         }
 
         public void update(Servico servico){
             tvNome.setText(servico.getNome());
-            tvTaxaIva.setText(Integer.toString(servico.getIva_id()));
+            tvTaxaIva.setText(String.valueOf(servico.getIvaspercentagem()) + "%");
             tvPrecoServico.setText(String.format("%.2f€", servico.getPreco()));
 
             //imgCapa.setImageResource(livro.getCapa());

@@ -16,7 +16,7 @@ import com.example.dentalcare.models.SingletonGestorApp;
 
 public class DetalhesDiagnosticosActivity extends AppCompatActivity  implements DetalhesDiagnosticoListener {
 
-    private TextView etDataDiagnostico, etHoraDiagnostico, etDescricaoDiagnostico, etDataConsulta;
+    private TextView etDataDiagnostico, etHoraDiagnostico, etDescricaoDiagnostico, etDataConsulta, etHoraConsulta;
     private Diagnostico diagnostico;
 
     @Override
@@ -35,7 +35,8 @@ public class DetalhesDiagnosticosActivity extends AppCompatActivity  implements 
         etDataDiagnostico = findViewById(R.id.etDataDiagnostico);
         etHoraDiagnostico = findViewById(R.id.etHoraDiagnostico);
         etDescricaoDiagnostico = findViewById(R.id.etDescricaoDiagnostico);
-        etDataConsulta  = findViewById(R.id.etDataConsulta);
+        etDataConsulta  = findViewById(R.id.tvDataConsulta);
+        etHoraConsulta  = findViewById(R.id.tvHoraConsulta);
 
         SingletonGestorApp.getInstance(getApplicationContext()).setDetalhesDiagnosticoListener(this);
 
@@ -49,8 +50,8 @@ public class DetalhesDiagnosticosActivity extends AppCompatActivity  implements 
         etDataDiagnostico.setText(diagnostico.getData());
         etHoraDiagnostico.setText(diagnostico.getHora());
         etDescricaoDiagnostico.setText(diagnostico.getDescricao());
-        //etDataConsulta.setText(diagnostico.getConsulta_id());
-
+        etDataConsulta.setText(diagnostico.getConsulta_data());
+        etHoraConsulta.setText(diagnostico.getConsultahora());
     }
 
     @Override

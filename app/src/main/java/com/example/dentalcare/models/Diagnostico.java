@@ -7,20 +7,22 @@ public class Diagnostico {
 
     private int id, profile_id, consulta_id;
 
-    private String descricao,data,hora;
+    private String descricao,data,hora,consultadata, consultahora;
     /*
 
     private LocalDate data;
 
     private LocalTime hora;*/
 
-    public Diagnostico(int id,int profile_id, int consulta_id, String descricao, String data, String hora) {
+    public Diagnostico(int id,int profile_id, int consulta_id, String descricao, String data, String hora, String consultadata, String consultahora) {
         this.id = id;
         this.descricao = descricao;
         this.data = data;
         this.hora = hora;
         this.profile_id = profile_id;
         this.consulta_id = consulta_id;
+        this.consultadata = consultadata;
+        this.consultahora = consultahora;
     }
 
 
@@ -60,4 +62,21 @@ public class Diagnostico {
     public int getConsulta_id() {return consulta_id;}
 
     public void setConsulta_id(int consulta_id) {this.consulta_id = consulta_id;}
+
+    public String getConsultahora() {
+        return consultahora;
+    }
+
+    public void setConsultahora(String consultahora) {
+        this.consultahora = consultahora;
+    }
+
+    public String getConsulta_data() {
+        return consultadata;
+    }
+
+    public void setConsulta_data(String consultadata) {
+        this.consultadata = consultadata;
+    }
+
 }

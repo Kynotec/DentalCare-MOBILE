@@ -5,16 +5,25 @@ public class Servico {
     private int id;
 
     private int iva_id;
-    private String referencia,nome,descricao;
+    private String referencia,nome,descricao, ivaspercentagem;
     private double preco;
 
-    public Servico(int id, String referencia, String nome, String descricao, double preco, int iva_id) {
+    public Servico(int id, String referencia, String nome, String descricao, String ivaspercentagem, double preco, int iva_id) {
         this.id = id;
         this.iva_id = iva_id;
         this.referencia = referencia;
         this.nome = nome;
         this.descricao = descricao;
+        this.ivaspercentagem = ivaspercentagem;
         this.preco = preco;
+    }
+
+    public String getIvaspercentagem() {
+        return ivaspercentagem;
+    }
+
+    public void setIvaspercentagem(String ivaspercentagem) {
+        this.ivaspercentagem = ivaspercentagem;
     }
 
     public int getId() {

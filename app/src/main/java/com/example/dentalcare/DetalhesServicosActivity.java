@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class DetalhesServicosActivity extends AppCompatActivity implements DetalhesServicoListener {
 
     public static final String ID_SERVICO = "id";
-    private TextView etNomeServico, etTaxaIva, etPrecoServico;
+    private TextView etNomeServico, etDescricaoServico, etTaxaIva, etPrecoServico;
     private Servico servico;
 
     @Override
@@ -45,7 +45,8 @@ public class DetalhesServicosActivity extends AppCompatActivity implements Detal
         servico = SingletonGestorApp.getInstance(getApplicationContext()).getServico(id);
 
         etNomeServico = findViewById(R.id.etNomeServico);
-        //etTaxaIva = findViewById(R.id.etTaxaIva);
+        etDescricaoServico = findViewById(R.id.etDescricaoServico);
+        etTaxaIva = findViewById(R.id.etTaxaIva);
         etPrecoServico = findViewById(R.id.etPrecoServico);
 
 
@@ -59,7 +60,8 @@ public class DetalhesServicosActivity extends AppCompatActivity implements Detal
 
     private void carregarServico() {
         etNomeServico.setText(servico.getNome());
-        //etTaxaIva.setText(servico.getIva_id());
+        etDescricaoServico.setText(servico.getDescricao());
+        etTaxaIva.setText(String.valueOf(servico.getIvaspercentagem()) + "%");
         etPrecoServico.setText(String.format("%.2f€", servico.getPreco()));
     }
 

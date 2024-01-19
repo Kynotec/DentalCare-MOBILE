@@ -108,11 +108,12 @@ public class JsonParser {
                 String referencia = servicoJson.getString("referencia");
                 String nome = servicoJson.getString("nome");
                 String descricao = servicoJson.getString("descricao");
+                String ivaspercentagem = servicoJson.getString("ivaspercentagem");
                 String precoString = servicoJson.getString("preco");
                 double preco= Double.parseDouble(precoString);
                 int iva_id = servicoJson.getInt("iva_id");
 
-                Servico servico = new Servico(id,referencia,nome,descricao,preco,iva_id);
+                Servico servico = new Servico(id,referencia,nome,descricao,ivaspercentagem,preco,iva_id);
                 servicos.add(servico);
             }
         } catch (JSONException e) {
@@ -130,10 +131,11 @@ public class JsonParser {
             String referencia = servicoJson.getString("referencia");
             String nome = servicoJson.getString("nome");
             String descricao = servicoJson.getString("descricao");
+            String ivaspercentagem = servicoJson.getString("ivaspercentagem");
             String precoString = servicoJson.getString("preco");
             double preco= Double.parseDouble(precoString);
             int iva_id = servicoJson.getInt("iva_id");
-            servico = new Servico(id,referencia,nome,descricao,preco,iva_id);
+            servico = new Servico(id,referencia,nome,descricao,ivaspercentagem,preco,iva_id);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -177,8 +179,10 @@ public class JsonParser {
                 String descricao = diagnosticoJson.getString("descricao");
                 int profile_id = diagnosticoJson.getInt("profile_id");
                 int consulta_id = diagnosticoJson.getInt("consulta_id");
+                String consultadata = diagnosticoJson.getString("consultadata");
+                String consultahora = diagnosticoJson.getString("consultahora");
 
-                Diagnostico diagnostico = new Diagnostico(id,profile_id,consulta_id,descricao,data,hora);
+                Diagnostico diagnostico = new Diagnostico(id,profile_id,consulta_id,descricao,data,hora,consultadata,consultahora);
                 diagnosticos.add(diagnostico);
             }
         } catch (JSONException e) {

@@ -64,11 +64,10 @@ public class ListaProdutosAdaptador extends BaseAdapter {
     }
 
         private class ViewHolderLista{
-            private TextView tvNomeProduto,tvStock, tvDescricaoProduto, tvPrecoUnitarioProduto;
+            private TextView tvNomeProduto,tvStock, tvPrecoUnitarioProduto;
           //  private ImageView imgCapa;
             public ViewHolderLista(View view){
                 tvNomeProduto=view.findViewById(R.id.tvNomeProduto);
-                tvDescricaoProduto=view.findViewById(R.id.tvDescricaoProduto);
                 tvPrecoUnitarioProduto=view.findViewById(R.id.tvPrecoUnitarioProduto);
                 tvStock = view.findViewById(R.id.tvStock);
                 //imgCapa = view.findViewById(R.id.imgCapa);
@@ -76,7 +75,6 @@ public class ListaProdutosAdaptador extends BaseAdapter {
 
             public void update(Produto produto){
                 tvNomeProduto.setText(produto.getNome());
-                tvDescricaoProduto.setText(produto.getDescricao());
                 tvPrecoUnitarioProduto.setText(String.format("%.2f€", produto.getPrecounitario()));
                 if (produto.getStock() != 0) {
                     tvStock.setText(R.string.emStock);

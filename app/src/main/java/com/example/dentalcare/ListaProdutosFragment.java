@@ -51,18 +51,7 @@ public class ListaProdutosFragment extends Fragment implements ProdutosListener 
 
         SingletonGestorApp.getInstance(getContext()).setProdutosListener(this);
         SingletonGestorApp.getInstance(getContext()).getAllProdutosAPI(getContext());
-        /*
-        fabLista = view.findViewById(R.id.fabLista);
-        fabLista.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), DetalhesLivroActivity.class);
-                // startActivity(intent);
-                startActivityForResult(intent,MenuMainActivity.ADD);
-            }
-        });
 
-         */
         return view;
     }
 

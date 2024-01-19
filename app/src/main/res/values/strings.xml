@@ -30,15 +30,16 @@
     <string name="txt_ivatotal">Iva Total:</string>
     <string name="txt_estado">Estado:</string>
     <string name="txt_valortotal">Valor Total:</string>
-    <string name="txt_hora">Hora</string>
+    <string name="txt_hora">Hora:</string>
     <string name="txt_servico">Serviço</string>
     <string name="txt_medico">Médico</string>
     <string name="txt_nome_produto">Nome do Produto</string>
-    <string name="txt_descricao_produto">Descrição do Produto\n</string>
+    <string name="txt_nome_servico">Nome do Serviço</string>
+    <string name="txt_descricao_produto">Descrição do Produto</string>
     <string name="txt_precounitario_produto">Preço Unitário do Produto</string>
     <string name="txt_descricao_servico">Descrição do Serviço</string>
     <string name="txt_taxa_iva">Taxa IVA</string>
-    <string name="txt_preco_servico">Preço do Serviço c/IVA</string>
+    <string name="txt_preco_servico">Preço do Serviço s/IVA</string>
     <string name="txt_adicionar_ip">Adicionar IP do Servidor</string>
     <string name="et_ip">IP do Servidor</string>
     <string name="txt_username_invalido">O username é inválido\n</string>
@@ -56,6 +57,6 @@
     <string name="foraStock">Fora de Stock</string>
     <string name="txt_stock">Estado do Produto</string>
     <string name="quantidade_stock_invalido">Quantidade Stock Invalido</string>
-
+    <string name="txt_hora_consulta">Hora da Consulta:</string>
 
 </resources>

@@ -40,11 +40,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:text="Nome do Servico"
+                android:text="@string/txt_nome_servico"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/etNomeServico"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:text="@string/txt_descricao_servico"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/etDescricaoServico"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -55,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:text="Taxa Iva"
+                android:text="@string/txt_taxa_iva"
                 android:textStyle="bold" />
 
             <TextView
@@ -69,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:text="Preco do Servico c/IVA"
+                android:text="@string/txt_preco_servico"
                 android:textStyle="bold" />
 
             <TextView
