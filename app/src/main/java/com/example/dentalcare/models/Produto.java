@@ -5,7 +5,7 @@ import java.util.List;
 public class Produto {
 
 
-    List<Imagem>imagems;
+    String imagem;
     private int id;
 
     private String nome,descricao;
@@ -15,20 +15,16 @@ public class Produto {
 
     private int stock;
 
-    public List<Imagem> getImagems() {
-        return imagems;
-    }
 
-    public void setImagems(List<Imagem> imagems) {
-        this.imagems = imagems;
-    }
 
-    public Produto(int id, String nome, String descricao, double precounitario, int stock) {
+
+    public Produto(int id, String nome, String descricao, double precounitario, int stock, String imagem) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.precounitario = precounitario;
         this.stock = stock;
+        this.imagem = imagem;
     }
 
     public int getStock() {
@@ -69,5 +65,13 @@ public class Produto {
 
     public void setPrecounitario(double precounitario) {
         this.precounitario = precounitario;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 }

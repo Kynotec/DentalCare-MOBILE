@@ -24,6 +24,9 @@ public class BDHelper extends SQLiteOpenHelper {
             PERCENTAGEM = "percentagem", FATURA_ID = "fatura_id", PRODUTO_ID = "produto_id", SERVICO_ID = "servico_id",
             NOME = "nome", DESCRICAO = "descricao", PRECOUNITARIO = "precounitario", STOCK = "stock",
             REFERENCIA = "referencia", PRECO = "preco", IVA_ID = "iva_id", HORA = "hora",
+
+            IMAGEM = "imagem",
+
             CONSULTA_ID = "consulta_id", ESTADO = "estado", PROFILE_ID = "profile_id";
 
 
@@ -44,7 +47,8 @@ public class BDHelper extends SQLiteOpenHelper {
                 NOME + " TEXT NOT NULL," +
                 DESCRICAO + " TEXT NOT NULL," +
                 PRECOUNITARIO + " DOUBLE NOT NULL," +
-                STOCK + " INTEGER NOT NULL );";
+                STOCK + " INTEGER NOT NULL," +
+                IMAGEM + " STRING NOT NULL);";
 
 
         String createTableServicos = "CREATE TABLE " + TABLE_SERVICOS + "(" + ID + " INTEGER PRIMARY KEY," +
@@ -133,6 +137,7 @@ public class BDHelper extends SQLiteOpenHelper {
         values.put(DESCRICAO, produto.getDescricao());
         values.put(PRECOUNITARIO, produto.getPrecounitario());
         values.put(STOCK, produto.getStock());
+        values.put(IMAGEM, produto.getImagem());
 
         //values.put(IVA_ID,a.getIva_id());
 
@@ -151,14 +156,14 @@ public class BDHelper extends SQLiteOpenHelper {
 
     public ArrayList<Produto> getAllProdutosBD() {
         ArrayList<Produto> produtos = new ArrayList<>();
-        Cursor cursor = db.query(TABLE_PRODUTOS, new String[]{ID, NOME, DESCRICAO, PRECOUNITARIO, STOCK/*,IVA_ID*/},
+        Cursor cursor = db.query(TABLE_PRODUTOS, new String[]{ID, NOME, DESCRICAO, PRECOUNITARIO, STOCK, IMAGEM/*,IVA_ID*/},
                 null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
             do {
                 Produto auxProduto = new Produto(cursor.getInt(0), cursor.getString(1)
                         , cursor.getString(2), cursor.getDouble(3),
-                        cursor.getInt(4));
+                        cursor.getInt(4), cursor.getString(5));
 
                 produtos.add(auxProduto);
             } while (cursor.moveToNext());

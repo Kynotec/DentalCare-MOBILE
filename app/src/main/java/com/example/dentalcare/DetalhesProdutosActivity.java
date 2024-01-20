@@ -15,9 +15,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.dentalcare.listeners.DetalhesProdutoListener;
 import com.example.dentalcare.listeners.DetalhesServicoListener;
 import com.example.dentalcare.listeners.ProdutosListener;
@@ -35,6 +38,7 @@ public class DetalhesProdutosActivity extends AppCompatActivity implements Detal
     private TextView etNomeProduto,tvStock, etDescricaoProduto, etPrecoUnitarioProduto;
     private Produto produto;
 
+    private ImageView imgCapa;
     private ImageButton btnMore, btnMinus;
     private Button btnCart;
 
@@ -60,6 +64,9 @@ public class DetalhesProdutosActivity extends AppCompatActivity implements Detal
         etNomeProduto = findViewById(R.id.etNomeProduto);
         etDescricaoProduto = findViewById(R.id.etDescricaoProduto);
         etPrecoUnitarioProduto = findViewById(R.id.etPrecoUnitarioProduto);
+        imgCapa = findViewById(R.id.imgProduto);
+
+
         tvStock = findViewById(R.id.tvStock);
         btnCart = findViewById(R.id.btnAddCart);
         btnMinus = findViewById(R.id.btnMinus);
@@ -117,6 +124,12 @@ public class DetalhesProdutosActivity extends AppCompatActivity implements Detal
             btnMinus.setEnabled(false);
             numQuant.setEnabled(false);
         }
+
+        Glide.with(getApplicationContext())
+                .load(produto.getImagem())
+                .placeholder(R.drawable.dentalcare_logo)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imgCapa);
 
     }
 

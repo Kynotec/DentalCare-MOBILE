@@ -313,7 +313,7 @@ public class SingletonGestorApp {
                 produtosListener.onRefreshListaProdutos(BD.getAllProdutosBD());
             }
         } else {
-            final String APIProdutoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/produto";
+            final String APIProdutoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/produto/produtosimagem";
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, APIProdutoWithIP, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {

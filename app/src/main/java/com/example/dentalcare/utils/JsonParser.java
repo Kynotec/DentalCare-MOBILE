@@ -68,8 +68,8 @@ public class JsonParser {
                 String descricao = produtoJson.getString("descricao");
                 String precounitarioString = produtoJson.getString("precounitario");
                 double precounitario= Double.parseDouble(precounitarioString);
-
-                Produto produto = new Produto(id,nome,descricao,precounitario,stock);
+                String imagem ="http://172.22.21.201/DentalCare-WEB/DentalCare/public/images/products/" + produtoJson.getString("imagem");
+                Produto produto = new Produto(id,nome,descricao,precounitario,stock,imagem);
                 produtos.add(produto);
             }
         } catch (JSONException e) {
@@ -89,7 +89,8 @@ public class JsonParser {
             String descricao = produtoJson.getString("descricao");
             String precounitarioString = produtoJson.getString("precounitario");
             double precounitario= Double.parseDouble(precounitarioString);
-            produto = new Produto(id,nome,descricao,precounitario,stock);
+            String imagem = produtoJson.getString("imagem");
+            produto = new Produto(id,nome,descricao,precounitario,stock,imagem);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }

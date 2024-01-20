@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 //import com.bumptech.glide.Glide;
 //import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.dentalcare.R;
 import com.example.dentalcare.models.Produto;
 
@@ -65,12 +67,12 @@ public class ListaProdutosAdaptador extends BaseAdapter {
 
         private class ViewHolderLista{
             private TextView tvNomeProduto,tvStock, tvPrecoUnitarioProduto;
-          //  private ImageView imgCapa;
+           private ImageView imgCapa;
             public ViewHolderLista(View view){
                 tvNomeProduto=view.findViewById(R.id.tvNomeProduto);
                 tvPrecoUnitarioProduto=view.findViewById(R.id.tvPrecoUnitarioProduto);
                 tvStock = view.findViewById(R.id.tvStock);
-                //imgCapa = view.findViewById(R.id.imgCapa);
+                imgCapa = view.findViewById(R.id.imgProduto);
             }
 
             public void update(Produto produto){
@@ -84,14 +86,14 @@ public class ListaProdutosAdaptador extends BaseAdapter {
                     tvStock.setTextColor(Color.parseColor("#b00200"));
                 }
                 //imgCapa.setImageResource(livro.getCapa());
-                /*
+
                 Glide.with(context)
-                        .load(livro.getCapa())
-                        .placeholder(R.drawable.logoipl)
+                        .load(produto.getImagem())
+                        .placeholder(R.drawable.dentalcare_logo)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(imgCapa);
 
-                 */
+
             }
 
 
