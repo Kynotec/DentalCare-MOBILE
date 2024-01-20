@@ -677,12 +677,43 @@ public class SingletonGestorApp {
 
     }
 
+    public void editarMarcacaoAPI(final Consulta marcacao, final Context context, String token) {
+        if (!JsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "Nao têm ligação à internet", Toast.LENGTH_SHORT).show();
+        } else {
 
+            final String APIMarcacaoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/consulta";
+            StringRequest request = new StringRequest(Request.Method.PUT, APIMarcacaoWithIP + "/" + marcacao.getId() + "?access-token=" + token, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    //1-editar BD Local
+                    //editarMarcacaoBD(marcacao);
+                    //TODO 2- informar a vista
+                    if (marcacaoListener != null) {
+                        marcacaoListener.onRefreshDetalhes(MenuMainActivity.EDIT);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("token", token);
+                    params.put("descricao", marcacao.getDescricao());
+                    params.put("data", marcacao.getData());
+                    params.put("hora", marcacao.getHora());
+                    params.put("estado", marcacao.getEstado());
+                    params.put("servico_id", marcacao.getNomeservico());
 
-
-
-
-
-
+                    return params;
+                }
+            };
+            volleyQueue.add(request);
+        }
+    }
 
 }

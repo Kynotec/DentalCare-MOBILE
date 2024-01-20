@@ -33,6 +33,8 @@ public class DetalhesMarcacoesActivity extends AppCompatActivity  implements Det
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_marcacoes);
 
+        SharedPreferences sharedPreferences = this.getApplicationContext().getSharedPreferences(MenuMainActivity.SHARED_USER, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(MenuMainActivity.TOKEN, null);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -68,7 +70,7 @@ public class DetalhesMarcacoesActivity extends AppCompatActivity  implements Det
                     marcacao.setHora(etHoraMarcacao.getText().toString());
                     marcacao.setNomeservico(etNomeServico.getText().toString());
 
-                   // SingletonGestorApp.getInstance(getApplicationContext()).editarMarcacaoBD(marcacao,getApplicationContext(),token);
+                    SingletonGestorApp.getInstance(getApplicationContext()).editarMarcacaoAPI(marcacao,getApplicationContext(),token);
                 } else {
                     /*
                     marcacao = new Consulta(0,DEFAULT_IMG,Integer.parseInt(etAno.getText().toString()),etTitulo.getText().toString(),etSerie.getText().toString(),etAutor.getText().toString());
