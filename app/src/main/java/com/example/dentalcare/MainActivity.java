@@ -1,6 +1,7 @@
 package com.example.dentalcare;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,10 +26,17 @@ public class MainActivity extends AppCompatActivity {
         // Configure o texto da TextView com o endereço IP
         tvIP.setText(ipAddress);
 
+
     }
 
     public void onClickLogin(View view) {
-        Intent intent=new Intent(this,LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+
+    public void onClickProdutosOffline(View view) {
+        Intent intent = new Intent(this, ProdutosOffilneActivity.class);
+        startActivity(intent);
+    }
+
 }

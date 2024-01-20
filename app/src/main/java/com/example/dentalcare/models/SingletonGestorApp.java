@@ -78,8 +78,9 @@ public class SingletonGestorApp {
         return instance;
     }
 
-    private SingletonGestorApp(Context context) {
-        // BD = new BDHelper(context);
+    public SingletonGestorApp(Context context) {
+        BD = new BDHelper(context);
+
         produtos = new ArrayList<>();
     }
 
@@ -87,9 +88,7 @@ public class SingletonGestorApp {
         this.loginListener = loginListener;
     }
 
-    public void setProdutosListener(ProdutosListener produtosListener){
-        this.produtosListener = produtosListener;
-    }
+
     public void setServicosListener(ServicosListener servicosListener){
         this.servicosListener = servicosListener;
     }
@@ -116,9 +115,15 @@ public class SingletonGestorApp {
     public void setDetalhesDiagnosticoListener(DetalhesDiagnosticoListener detalhesDiagnosticoListener) {
         this.detalhesDiagnosticoListener = detalhesDiagnosticoListener;
     }
+
+    public void setProdutosListener(ProdutosListener produtosListener){
+        this.produtosListener = produtosListener;
+    }
     public void setDetalhesProdutoListener(DetalhesProdutoListener detalhesProdutoListener) {
         this.detalhesProdutoListener = detalhesProdutoListener;
     }
+
+
 
     public void setDetalhesFaturaListener(DetalhesFaturasActivity detalhesFaturaListener) {
         this.detalhesFaturaListener = detalhesFaturaListener;
@@ -282,51 +287,111 @@ public class SingletonGestorApp {
     }
 
 
-    public void getAllProdutosAPI(final Context context) {
-        if(!JsonParser.isConnectionInternet(context)){
-            Toast.makeText(context, context.getString(R.string.sem_ligacao), Toast.LENGTH_SHORT).show();
-        }else {
+    public ArrayList<Produto> getProdutosBD(){
+        produtos = BD.getAllProdutosBD();
+        return new ArrayList(produtos);
+    }
 
+    public void adicionarProdutosBD(ArrayList<Produto> produtos)
+    {
+        BD.removerAllProdutos();
+        for(Produto a:produtos)
+        {
+            adicionarProdutoBD(a);
+        }
+    }
+    public void adicionarProdutoBD(Produto a)
+    {
+        BD.adcionarProdutoBD(a);
+    }
+
+    public void getAllProdutosAPI(final Context context) {
+        if (!JsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, context.getString(R.string.sem_ligacao), Toast.LENGTH_SHORT).show();
+            if (produtosListener != null) {
+                // Carrega produtos do banco de dados local
+                produtosListener.onRefreshListaProdutos(BD.getAllProdutosBD());
+            }
+        } else {
             final String APIProdutoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/produto";
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, APIProdutoWithIP, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
                     produtos = JsonParser.parserJsonProdutos(response);
-                    if (produtosListener != null)
+                    adicionarProdutosBD(produtos);
+                    if (produtosListener != null) {
                         produtosListener.onRefreshListaProdutos(produtos);
+                    }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, error.getMessage()+"", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, R.string.a_carregar_produtos, Toast.LENGTH_SHORT).show();
+
+                    if (produtosListener != null) {
+                        // Em caso de falha na API, carrega produtos do banco de dados local
+                        produtosListener.onRefreshListaProdutos(BD.getAllProdutosBD());
+                    }
                 }
             });
+
             volleyQueue.add(jsonArrayRequest);
         }
     }
+
+
+    public ArrayList<Servico> getServicosBD() { // return da copia dos Servicos
+        servicos=BD.getAllServicosBD();
+        return new ArrayList(servicos);
+    }
+
+    public void adicionarServicosBD(ArrayList<Servico> servicos)
+    {
+        BD.removerAllServicos();
+        for(Servico a:servicos)
+        {
+            adicionarServicoBD(a);
+        }
+    }
+
+    public void adicionarServicoBD(Servico a)
+    {
+        BD.adcionarServicoBD(a);
+    }
+
+
 
     public void getAllServicosAPI(final Context context) {
         if(!JsonParser.isConnectionInternet(context)){
             Toast.makeText(context, context.getString(R.string.sem_ligacao), Toast.LENGTH_SHORT).show();
         }else {
 
-            final String APIServicoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/servico";
+            final String APIServicoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/servico/get-iva";
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, APIServicoWithIP, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
                     servicos = JsonParser.parserJsonServicos(response);
-                    if (servicosListener != null)
+                    adicionarServicosBD(servicos);
+                    if (servicosListener != null) {
                         servicosListener.onRefreshListaServicos(servicos);
+                    }
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(context, error.getMessage()+"", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, R.string.a_carregar_servicos, Toast.LENGTH_SHORT).show();
+
+                    if (servicosListener != null) {
+                        // Em caso de falha na API, carrega produtos do banco de dados local
+                        servicosListener.onRefreshListaServicos(BD.getAllServicosBD());
+                    }
                 }
             });
             volleyQueue.add(jsonArrayRequest);
         }
     }
+
+
 
     public void getAllDiagnosticosAPI(final Context context, String token) {
         if (!JsonParser.isConnectionInternet(context)) {
@@ -414,5 +479,38 @@ public class SingletonGestorApp {
             volleyQueue.add(req);
         }
     }
+
+
+    /*
+    public void addCarrinhoAPI(final Context context, String token) {
+        if(!JsonParser.isConnectionInternet(context)){
+            Toast.makeText(context, context.getString(R.string.sem_ligacao), Toast.LENGTH_SHORT).show();
+        }else {
+
+            final String APICarrinhoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/carrinho";
+            String urlCarrinho = APICarrinhoWithIP + "/adicionar-ao-carrinho?token=" + token;
+
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, urlCarrinho, null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    //produtos = JsonParser.parserJsonProdutos(response);
+                    //if (produtosListener != null)
+                    //    produtosListener.onRefreshListaProdutos(produtos);
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+            volleyQueue.add(req);
+        }
+    }
+
+     */
+
 
 }

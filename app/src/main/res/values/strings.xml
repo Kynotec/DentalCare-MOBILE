@@ -50,7 +50,6 @@
     <string name="txt_null">null\n</string>
     <string name="txt_nfatura">Fatura nº:</string>
     <string name="txt_data_consulta">Data da Consulta:</string>
-
     <string name="txt_definicoes">Definições\n</string>
     <string name="txt_logout">Logout\n</string>
     <string name="txt_adicionar_carrinho">Adicionar ao Carrinho</string>
@@ -59,12 +58,14 @@
     <string name="txt_stock">Estado do Produto</string>
     <string name="quantidade_stock_invalido">Quantidade Stock Invalido</string>
     <string name="txt_hora_consulta">Hora da Consulta:</string>
-
     <string name="idlinhafatura">ID:</string>
     <string name="quantidadelinhafatura">Quantidade:</string>
     <string name="produtoLinhaFatura">Produto:</string>
     <string name="servi_oLinhaFatura">Serviço:</string>
     <string name="valor_totalLinhaFatura">Valor total:</string>
+    <string name="a_carregar_produtos">A carregar Produtos</string>
+    <string name="a_carregar_servicos">A Carregar Servicos</string>
+    <string name="menu_pesquisa">menu pesquisa\n</string>
 
 
 </resources>

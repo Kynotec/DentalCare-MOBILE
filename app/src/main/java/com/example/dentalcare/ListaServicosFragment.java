@@ -35,6 +35,8 @@ public class ListaServicosFragment extends Fragment implements ServicosListener 
 
     private ListView lvservicos;
 
+    private ListaServicosAdaptador servicosAdapter;
+
     private SearchView searchView;
     public static final int ACT_DETAlHES =1;
 
@@ -58,17 +60,73 @@ public class ListaServicosFragment extends Fragment implements ServicosListener 
             }
         });
 
+        // Inicialize o adaptador aqui e defina no ListView
+        servicosAdapter = new ListaServicosAdaptador(getContext(), new ArrayList<>());
+        lvservicos.setAdapter(servicosAdapter);
+
         SingletonGestorApp.getInstance(getContext()).setServicosListener(this);
         SingletonGestorApp.getInstance(getContext()).getAllServicosAPI(getContext());
 
         return view;
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_search, menu);
 
+        // Encontrar o item de pesquisa no menu
+        MenuItem itemSearch = menu.findItem(R.id.itemPesquisa);
+
+        // Verificar se o item de pesquisa não é nulo
+        if (itemSearch != null) {
+            // Obter o SearchView diretamente do item de pesquisa
+            searchView = (SearchView) itemSearch.getActionView();
+
+            // Adicionar um listener de consulta de texto
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    // Ação a ser tomada ao submeter a consulta
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String s) {
+                    // Ação a ser tomada quando o texto da consulta é alterado
+                    ArrayList<Servico> tempLista = new ArrayList<>();
+                    ArrayList<Servico> teste = SingletonGestorApp.getInstance(getContext()).getServicosBD();
+                    for (Servico a : teste) {
+                        if (a.getNome().toLowerCase().contains(s.toLowerCase())) {
+                            tempLista.add(a);
+                        }
+                    }
+
+                    // Criar um novo adaptador com a lista filtrada
+                    ListaServicosAdaptador newAdapter = new ListaServicosAdaptador(getContext(), tempLista);
+                    lvservicos.setAdapter(newAdapter);
+
+                    return true;
+                }
+            });
+        }
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onResume() {
+        if (searchView != null) {
+            searchView.onActionViewCollapsed();
+        }
+        super.onResume();
+    }
 
     @Override
     public void onRefreshListaServicos(ArrayList<Servico> listaservicos) {
-        if(listaservicos !=null)
-            lvservicos.setAdapter(new ListaServicosAdaptador(getContext(),listaservicos));
+        if (listaservicos != null) {
+            // Criar um novo adaptador e definir na ListView
+            servicosAdapter = new ListaServicosAdaptador(getContext(), listaservicos);
+            lvservicos.setAdapter(servicosAdapter);
+        }
     }
 }

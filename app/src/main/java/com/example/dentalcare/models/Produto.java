@@ -1,7 +1,11 @@
 package com.example.dentalcare.models;
 
+import java.util.List;
+
 public class Produto {
 
+
+    List<Imagem>imagems;
     private int id;
 
     private String nome,descricao;
@@ -11,8 +15,15 @@ public class Produto {
 
     private int stock;
 
+    public List<Imagem> getImagems() {
+        return imagems;
+    }
 
-    public Produto(int id, String nome, String descricao, double precounitario,int stock) {
+    public void setImagems(List<Imagem> imagems) {
+        this.imagems = imagems;
+    }
+
+    public Produto(int id, String nome, String descricao, double precounitario, int stock) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
