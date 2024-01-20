@@ -25,7 +25,7 @@ public class BDHelper extends SQLiteOpenHelper {
             NOME = "nome", DESCRICAO = "descricao", PRECOUNITARIO = "precounitario", STOCK = "stock",
             REFERENCIA = "referencia", PRECO = "preco", IVA_ID = "iva_id", HORA = "hora", ESTADO="estado",
 
-            IMAGEM = "imagem",
+            IMAGEM = "imagem", IVASPERCENTAGEM="ivaspercentagem",
 
             CONSULTA_ID = "consulta_id", PROFILE_ID = "profile_id";
 
@@ -58,7 +58,7 @@ public class BDHelper extends SQLiteOpenHelper {
                 DESCRICAO + " TEXT NOT NULL," +
                 PRECOUNITARIO + " DOUBLE NOT NULL," +
                 STOCK + " INTEGER NOT NULL," +
-                IMAGEM + " STRING NOT NULL);";
+                IMAGEM + " TEXT  NOT NULL);";
 
 
         String createTableServicos = "CREATE TABLE " + TABLE_SERVICOS + "(" + ID + " INTEGER PRIMARY KEY," +
@@ -66,7 +66,7 @@ public class BDHelper extends SQLiteOpenHelper {
                 NOME + " TEXT NOT NULL," +
                 DESCRICAO + " TEXT NOT NULL," +
                 PRECO + " DOUBLE NOT NULL," +
-                IVA_ID + " INTEGER NOT NULL );";
+                IVASPERCENTAGEM+ " STRING NOT NULL );";
         /*
         String createTableIVAS = "CREATE TABLE " + TABLE_IVAS + "(" + ID + " INTEGER PRIMARY KEY," +
                 EMVIGOR + " INTEGER NOT NULL," +
@@ -196,7 +196,7 @@ public class BDHelper extends SQLiteOpenHelper {
         values.put(NOME, servico.getNome());
         values.put(DESCRICAO, servico.getDescricao());
         values.put(PRECO, servico.getPreco());
-        values.put(IVA_ID, servico.getIva_id());
+        values.put(IVASPERCENTAGEM, servico.getIvaspercentagem());
 
 
         // db.insert retorna -1 em caso de erro ou o id que foi criado
@@ -214,14 +214,14 @@ public class BDHelper extends SQLiteOpenHelper {
 
     public ArrayList<Servico> getAllServicosBD() {
         ArrayList<Servico> servicos = new ArrayList<>();
-        Cursor cursor = db.query(TABLE_SERVICOS, new String[]{ID, REFERENCIA,NOME,DESCRICAO,PRECO,IVA_ID},
+        Cursor cursor = db.query(TABLE_SERVICOS, new String[]{ID, REFERENCIA,NOME,DESCRICAO,PRECO,IVASPERCENTAGEM},
                 null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
             do {
                 Servico auxServico = new Servico(cursor.getInt(0), cursor.getString(1)
                         , cursor.getString(2), cursor.getString(3),
-                        cursor.getString(4), cursor.getDouble(5), cursor.getInt(6));
+                        cursor.getString(4), cursor.getDouble(5));
 
                 servicos.add(auxServico);
             } while (cursor.moveToNext());

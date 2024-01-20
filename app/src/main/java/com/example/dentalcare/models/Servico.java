@@ -4,13 +4,11 @@ public class Servico {
 
     private int id;
 
-    private int iva_id;
     private String referencia,nome,descricao, ivaspercentagem;
     private double preco;
 
-    public Servico(int id, String referencia, String nome, String descricao, String ivaspercentagem, double preco, int iva_id) {
+    public Servico(int id, String referencia, String nome, String descricao, String ivaspercentagem, double preco) {
         this.id = id;
-        this.iva_id = iva_id;
         this.referencia = referencia;
         this.nome = nome;
         this.descricao = descricao;
@@ -34,13 +32,6 @@ public class Servico {
         this.id = id;
     }
 
-    public int getIva_id() {
-        return iva_id;
-    }
-
-    public void setIva_id(int iva_id) {
-        this.iva_id = iva_id;
-    }
 
     public String getReferencia() {
         return referencia;

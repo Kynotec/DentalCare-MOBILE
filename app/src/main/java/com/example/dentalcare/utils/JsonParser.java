@@ -116,9 +116,8 @@ public class JsonParser {
                 String ivaspercentagem = servicoJson.getString("ivaspercentagem");
                 String precoString = servicoJson.getString("preco");
                 double preco= Double.parseDouble(precoString);
-                int iva_id = servicoJson.getInt("iva_id");
 
-                Servico servico = new Servico(id,referencia,nome,descricao,ivaspercentagem,preco,iva_id);
+                Servico servico = new Servico(id,referencia,nome,descricao,ivaspercentagem,preco);
                 servicos.add(servico);
             }
         } catch (JSONException e) {
@@ -139,8 +138,8 @@ public class JsonParser {
             String ivaspercentagem = servicoJson.getString("ivaspercentagem");
             String precoString = servicoJson.getString("preco");
             double preco= Double.parseDouble(precoString);
-            int iva_id = servicoJson.getInt("iva_id");
-            servico = new Servico(id,referencia,nome,descricao,ivaspercentagem,preco,iva_id);
+
+            servico = new Servico(id,referencia,nome,descricao,ivaspercentagem,preco);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
