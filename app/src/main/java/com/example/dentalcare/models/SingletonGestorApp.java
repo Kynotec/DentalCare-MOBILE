@@ -16,8 +16,11 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.dentalcare.CarrinhoActivity;
 import com.example.dentalcare.DetalhesFaturasActivity;
+import com.example.dentalcare.MenuMainActivity;
 import com.example.dentalcare.R;
+import com.example.dentalcare.listeners.CarrinhosListener;
 import com.example.dentalcare.listeners.DetalhesDiagnosticoListener;
 import com.example.dentalcare.listeners.DetalhesProdutoListener;
 import com.example.dentalcare.listeners.DetalhesServicoListener;
@@ -31,6 +34,8 @@ import com.example.dentalcare.listeners.ServicosListener;
 import com.example.dentalcare.utils.JsonParser;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,6 +71,8 @@ public class SingletonGestorApp {
     private DetalhesProdutoListener detalhesProdutoListener;
     private DetalhesFaturasActivity detalhesFaturaListener;
     private DetalhesDiagnosticoListener detalhesDiagnosticoListener;
+
+    private CarrinhosListener carrinhosListener;
     private BDHelper BD;
 
 
@@ -87,7 +94,9 @@ public class SingletonGestorApp {
     public void setLoginListener(LoginListener loginListener) {
         this.loginListener = loginListener;
     }
-
+    public void setCarrinhosListener(CarrinhosListener carrinhosListener) {
+        this.carrinhosListener = carrinhosListener;
+    }
 
     public void setServicosListener(ServicosListener servicosListener){
         this.servicosListener = servicosListener;
@@ -191,11 +200,24 @@ public class SingletonGestorApp {
             StringRequest req = new StringRequest(Request.Method.GET, APILoginWithIP, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    String token = JsonParser.parserJsonLogin(response);
-                    String username = JsonParser.parserJsonUsername(response);
 
-                    if (loginListener != null)
-                        loginListener.onValidateLogin(token, username, context);
+                    try {
+                        JSONObject loginJSON = new JSONObject(response);
+                        String token = JsonParser.parserJsonLogin(response);
+                        String username = JsonParser.parserJsonUsername(response);
+                        int id = loginJSON.getInt("user_id");
+                        SharedPreferences sharedToken = context.getSharedPreferences("DADOS_USER", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedToken.edit();
+
+                        editor.putInt("id", id);
+                        editor.apply();
+
+                        if (loginListener != null)
+                            loginListener.onValidateLogin(token, username, context);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -481,21 +503,27 @@ public class SingletonGestorApp {
     }
 
 
-    /*
-    public void addCarrinhoAPI(final Context context, String token) {
+
+    public void addCarrinhoAPI(final Context context,final Produto produto,int quantidade) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MenuMainActivity.SHARED_USER, Context.MODE_PRIVATE);
+         String token = sharedPreferences.getString(MenuMainActivity.TOKEN, null);
+        SharedPreferences preferences = context.getSharedPreferences("DADOS_USER", Context.MODE_PRIVATE);
+        int id= preferences.getInt("id",0);
         if(!JsonParser.isConnectionInternet(context)){
             Toast.makeText(context, context.getString(R.string.sem_ligacao), Toast.LENGTH_SHORT).show();
         }else {
 
             final String APICarrinhoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/carrinho";
-            String urlCarrinho = APICarrinhoWithIP + "/adicionar-ao-carrinho?token=" + token;
+            String urlCarrinho = APICarrinhoWithIP + "/adicionar/" + produto.getId() + "/user/" + id +"?token=" + token;
 
-            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, urlCarrinho, null, new Response.Listener<JSONArray>() {
+            StringRequest StringRequest = new StringRequest(Request.Method.PUT, urlCarrinho, new Response.Listener<String>() {
                 @Override
-                public void onResponse(JSONArray response) {
-                    //produtos = JsonParser.parserJsonProdutos(response);
-                    //if (produtosListener != null)
-                    //    produtosListener.onRefreshListaProdutos(produtos);
+                public void onResponse(String response) {
+
+                    if(carrinhosListener !=null)
+                    {
+                        carrinhosListener.onRefreshDetalhes(CarrinhoActivity.ADD);
+                    }
 
                 }
             }, new Response.ErrorListener() {
@@ -504,13 +532,62 @@ public class SingletonGestorApp {
 
                     Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
                 }
-            });
+            })
+            {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("quantidade", String.valueOf(quantidade));
+                    return params;
+                }
+            }
+                    ;
 
-            volleyQueue.add(req);
+            volleyQueue.add(StringRequest);
         }
     }
 
-     */
+
+    public void viewCarrinhoAPI(final Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MenuMainActivity.SHARED_USER, Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString(MenuMainActivity.TOKEN, null);
+        SharedPreferences preferences = context.getSharedPreferences("DADOS_USER", Context.MODE_PRIVATE);
+        int id= preferences.getInt("id",0);
+        if(!JsonParser.isConnectionInternet(context)){
+            Toast.makeText(context, context.getString(R.string.sem_ligacao), Toast.LENGTH_SHORT).show();
+        }else {
+
+            final String APICarrinhoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/carrinho";
+            String urlCarrinho = APICarrinhoWithIP + "/buscarcarrinho/" + "/user/" + id +"?token=" + token;
+
+            JsonArrayRequest JsonArrayRequest = new JsonArrayRequest(Request.Method.GET, urlCarrinho, null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    ArrayList<Linha_carrinho> linhaCarrinhos = JsonParser.parserJsonCarrinho(response);
+                   // if()
+
+
+                }
+
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+
+            volleyQueue.add(JsonArrayRequest);
+        }
+    }
+
+
+
+
+
+
+
 
 
 }

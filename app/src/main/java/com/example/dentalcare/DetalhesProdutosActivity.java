@@ -69,6 +69,7 @@ public class DetalhesProdutosActivity extends AppCompatActivity implements Detal
 
         tvStock = findViewById(R.id.tvStock);
         btnCart = findViewById(R.id.btnAddCart);
+
         btnMinus = findViewById(R.id.btnMinus);
         btnMore = findViewById(R.id.btnMore);
         numQuant = findViewById(R.id.numQuantity);
@@ -78,9 +79,19 @@ public class DetalhesProdutosActivity extends AppCompatActivity implements Detal
             carregarProduto();
         }
 
+        btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SingletonGestorApp.getInstance(getApplicationContext()).addCarrinhoAPI(getApplicationContext(),produto,Integer.parseInt(numQuant.getText().toString()));
+                showToast("Produto adicionado ao carrinho!");
+            }
+        });
+
     }
 
-
+    private void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

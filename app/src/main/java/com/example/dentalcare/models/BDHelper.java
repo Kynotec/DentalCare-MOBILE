@@ -69,7 +69,7 @@ public class BDHelper extends SQLiteOpenHelper {
                 HORA + " TEXT NOT NULL," +
                 PROFILE_ID + " INTEGER NOT NULL," +
                 CONSULTA_ID + " INTEGER NOT NULL );";
-
+    */
 
         String createTableLinhasFaturas = "CREATE TABLE " + TABLE_LINHASFATURAS + "(" + ID + " INTEGER PRIMARY KEY," +
                 QUANTIDADE + " INTEGER NOT NULL," +
@@ -90,7 +90,7 @@ public class BDHelper extends SQLiteOpenHelper {
                 ESTADO + " TEXT NOT NULL );";
 
 
-         */
+
 
         sqLiteDatabase.execSQL(createTableProdutos);
 
@@ -98,10 +98,11 @@ public class BDHelper extends SQLiteOpenHelper {
         /*
         sqLiteDatabase.execSQL(createTableIVAS);
         sqLiteDatabase.execSQL(createTableDiagnosticos);
+         */
         sqLiteDatabase.execSQL(createTableLinhasFaturas);
         sqLiteDatabase.execSQL(createTableFaturas);
 
-         */
+
 
 
     }
@@ -216,6 +217,53 @@ public class BDHelper extends SQLiteOpenHelper {
             cursor.close();
         }
         return servicos;
+    }
+
+    //endregion
+
+
+    //region CRUD Faturas
+    public Fatura adcionarFaturaBD(Fatura fatura) {
+        ContentValues values = new ContentValues();
+        values.put(ID, fatura.getId());
+        values.put(PROFILE_ID, fatura.getProfile_id());
+        values.put(DATA, fatura.getData());
+        values.put(VALORTOTAL, fatura.getValortotal());
+        values.put(IVATOTAL, fatura.getIvatotal());
+        values.put(SUBTOTAL, fatura.getSubtotal());
+        values.put(ESTADO, fatura.getEstado());
+
+        //values.put(IVA_ID,a.getIva_id());
+
+        // db.insert retorna -1 em caso de erro ou o id que foi criado
+        int id = (int) db.insert(TABLE_FATURAS, null, values);
+        if (id > -1) {
+            fatura.setId(id);
+            return fatura;
+        }
+        return null;
+    }
+
+    public void removerAllFaturas() {
+        db.delete(TABLE_FATURAS, null, null);
+    }
+
+    public ArrayList<Fatura> getAllFaturasBD() {
+        ArrayList<Fatura> faturas = new ArrayList<>();
+        Cursor cursor = db.query(TABLE_FATURAS, new String[]{ID, DATA, VALORTOTAL, IVATOTAL, SUBTOTAL,ESTADO},
+                null, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Fatura auxFatura = new Fatura(cursor.getInt(0), cursor.getInt(1)
+                        , cursor.getString(2), cursor.getDouble(3),
+                        cursor.getDouble(4),cursor.getDouble(5), cursor.getString(6));
+
+                faturas.add(auxFatura);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        return faturas;
     }
 
     //endregion

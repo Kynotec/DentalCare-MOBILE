@@ -4,8 +4,10 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.example.dentalcare.models.Carrinho;
 import com.example.dentalcare.models.Diagnostico;
 import com.example.dentalcare.models.Fatura;
+import com.example.dentalcare.models.Linha_carrinho;
 import com.example.dentalcare.models.Linha_fatura;
 import com.example.dentalcare.models.Perfil;
 import com.example.dentalcare.models.Produto;
@@ -267,6 +269,35 @@ public class JsonParser {
 
         return linha_faturas;
     }
+
+    public static ArrayList<Linha_carrinho> parserJsonCarrinho(JSONArray response)
+    {
+        ArrayList<Linha_carrinho> linhaCarrinhos = new ArrayList<>();
+
+        try {
+            for (int i=0; i< response.length();i++) {
+                JSONObject jsonObject = (JSONObject) response.getJSONObject(i);
+                JSONObject produto = jsonObject.getJSONObject("produto");
+                int id=produto.getInt("id");
+                String nome = produto.getString("nome");
+                String descricao = produto.getString("descricao");
+                double precounitario = produto.getDouble("precounitario");
+                int stock = produto.getInt("stock");
+                String data = jsonObject.getString("data");
+                double valortotal = jsonObject.getDouble("valortotal");
+                Produto produtoAux = new Produto(id,nome,descricao,precounitario,stock,null);
+             //   Linha_carrinho linhaCarrinho = new Carrinho(produtoAux,data,valortotal);
+                //linhaCarrinhos.add(linhaCarrinho);
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return linhaCarrinhos;
+    }
+
+
+
 
     public static Boolean isConnectionInternet(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
