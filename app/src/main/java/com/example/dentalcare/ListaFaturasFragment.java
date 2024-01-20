@@ -45,7 +45,6 @@ public class ListaFaturasFragment extends Fragment implements FaturaListener {
         setHasOptionsMenu(true);
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(MenuMainActivity.SHARED_USER, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(MenuMainActivity.TOKEN, null);
-
         lvfaturas = view.findViewById(R.id.lvfaturas);
         lvfaturas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

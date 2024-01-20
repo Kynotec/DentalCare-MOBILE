@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 
 import com.example.dentalcare.models.Diagnostico;
 import com.example.dentalcare.models.Fatura;
+import com.example.dentalcare.models.Linha_fatura;
 import com.example.dentalcare.models.Perfil;
 import com.example.dentalcare.models.Produto;
 import com.example.dentalcare.models.Servico;
@@ -224,11 +225,54 @@ public class JsonParser {
         return faturas;
     }
 
+
+    //Linha Faturas
+
+
+
+    public static ArrayList<Linha_fatura> parserJsonLinhaFaturas(JSONArray response) {
+        ArrayList<Linha_fatura> linha_faturas = new ArrayList<>();
+        try {
+            for (int i = 0; i < response.length(); i++) {
+                JSONObject linhafaturaJson = (JSONObject) response.get(i);
+
+                int id = linhafaturaJson.getInt("id");
+                int fatura_id = linhafaturaJson.getInt("fatura_id");
+
+                // Verificando se os campos produto_id e servico_id existem no JSON
+                Integer produto_id = linhafaturaJson.isNull("produto_id") ? null : linhafaturaJson.getInt("produto_id");
+                Integer servico_id = linhafaturaJson.isNull("servico_id") ? null : linhafaturaJson.getInt("servico_id");
+
+                String quantidadeString = linhafaturaJson.getString("quantidade");
+                float quantidade = Float.parseFloat(quantidadeString);
+
+                String valortotalString = linhafaturaJson.getString("valortotal");
+                float valortotal = Float.parseFloat(valortotalString);
+
+                String valorunitarioString = linhafaturaJson.getString("valorunitario");
+                double valorunitario = Double.parseDouble(valorunitarioString);
+
+                String valorivaString = linhafaturaJson.getString("valoriva");
+                double valoriva = Double.parseDouble(valorivaString);
+                String produtonome = linhafaturaJson.getString("produtonome");
+                String serviconome = linhafaturaJson.getString("serviconome");
+
+                Linha_fatura linha_fatura = new Linha_fatura(id, fatura_id, produto_id, servico_id, quantidade, valortotal, valorunitario, valoriva,produtonome,serviconome);
+                linha_faturas.add(linha_fatura);
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        return linha_faturas;
+    }
+
     public static Boolean isConnectionInternet(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
         return ni != null && ni.isConnected();
     }
+
 
 
 }

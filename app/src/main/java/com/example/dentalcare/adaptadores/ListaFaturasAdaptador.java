@@ -43,7 +43,7 @@ public class ListaFaturasAdaptador extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (inflater == null)
-            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater = LayoutInflater.from(context);
         if (view == null)
             view = inflater.inflate(R.layout.item_lista_faturas, null);
 
@@ -62,11 +62,11 @@ public class ListaFaturasAdaptador extends BaseAdapter {
     private class ViewHolderLista{
         private TextView tvDataFatura, tvValorTotalFatura, tvIvaTotalFatura, tvSubTotalFatura, tvEstadoFatura;
         public ViewHolderLista(View view){
-            tvDataFatura=view.findViewById(R.id.tvDataFatura);
-            tvValorTotalFatura=view.findViewById(R.id.tvValorTotalFatura);
-            tvIvaTotalFatura=view.findViewById(R.id.tvIvaTotalFatura);
-            tvSubTotalFatura=view.findViewById(R.id.tvSubTotalFatura);
-            tvEstadoFatura=view.findViewById(R.id.tvEstadoFatura);
+            tvDataFatura=view.findViewById(R.id.tvIdLinhaFatura);
+            tvValorTotalFatura=view.findViewById(R.id.tvValorTotalLinhaFatura);
+            tvIvaTotalFatura=view.findViewById(R.id.tvProdutoLinhaFatura);
+            tvSubTotalFatura=view.findViewById(R.id.tvServicoLinhaFatura);
+            tvEstadoFatura=view.findViewById(R.id.tvQuantidadeLinhaFatura);
         }
 
         public void update(Fatura fatura){

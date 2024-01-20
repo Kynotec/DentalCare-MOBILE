@@ -1,6 +1,6 @@
 package com.example.dentalcare.listeners;
 
-import com.example.dentalcare.models.Diagnostico;
+
 import com.example.dentalcare.models.Fatura;
 
 import java.util.ArrayList;

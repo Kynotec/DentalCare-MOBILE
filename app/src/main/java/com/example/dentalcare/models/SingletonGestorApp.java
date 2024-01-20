@@ -1,6 +1,7 @@
 package com.example.dentalcare.models;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Base64;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.example.dentalcare.listeners.DetalhesProdutoListener;
 import com.example.dentalcare.listeners.DetalhesServicoListener;
 import com.example.dentalcare.listeners.DiagnosticoListener;
 import com.example.dentalcare.listeners.FaturaListener;
+import com.example.dentalcare.listeners.LinhaFaturaListener;
 import com.example.dentalcare.listeners.LoginListener;
 import com.example.dentalcare.listeners.PerfilListener;
 import com.example.dentalcare.listeners.ProdutosListener;
@@ -38,6 +40,8 @@ public class SingletonGestorApp {
 
     private String ipAddress;  // Variável para armazenar o endereço IP
 
+    private int fatura_id;
+
     private ArrayList<Produto> produtos;
     private ArrayList<Servico> servicos;
 
@@ -47,6 +51,8 @@ public class SingletonGestorApp {
 
     private ArrayList<Fatura> faturas;
 
+    private ArrayList<Linha_fatura> linha_faturas;
+
     private static SingletonGestorApp instance = null;
     private static RequestQueue volleyQueue = null;
     private LoginListener loginListener;
@@ -55,6 +61,7 @@ public class SingletonGestorApp {
     private ServicosListener servicosListener;
     private DiagnosticoListener diagnosticosListener;
     private FaturaListener faturasListener;
+    private LinhaFaturaListener linhafaturasListener;
     private DetalhesServicoListener detalhesServicoListener;
     private DetalhesProdutoListener detalhesProdutoListener;
     private DetalhesFaturasActivity detalhesFaturaListener;
@@ -93,6 +100,10 @@ public class SingletonGestorApp {
 
     public void setFaturasListener(FaturaListener faturasListener){
         this.faturasListener = faturasListener;
+    }
+
+    public void setLinhaFaturasListener(LinhaFaturaListener linhafaturasListener){
+        this.linhafaturasListener = linhafaturasListener;
     }
 
     public void setPerfilListener(PerfilListener perfilListener) {
@@ -140,6 +151,14 @@ public class SingletonGestorApp {
     }
     public Fatura getFatura(int id) {
         for (Fatura s : faturas) {
+            if (s.getId() == id)
+                return s;
+        }
+        return null;
+    }
+
+    public Linha_fatura getLinhaFatura(int id) {
+        for (Linha_fatura s : linha_faturas) {
             if (s.getId() == id)
                 return s;
         }
@@ -351,6 +370,38 @@ public class SingletonGestorApp {
 
                     if (faturasListener != null) {
                         faturasListener.onRefreshListaFaturas(faturas);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+            volleyQueue.add(req);
+        }
+    }
+
+    public void getAllLinhaFaturasAPI(final Context context, String token) {
+        if (!JsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+        } else {
+
+            // Recuperar o ID do SharedPreferences
+            SharedPreferences sharedFatura = context.getSharedPreferences("FATURA_ID", Context.MODE_PRIVATE);
+            int idRecuperado = sharedFatura.getInt("id", 0); // Substitua DEFAULT_VALUE pelo valor padrão a ser usado caso o ID não exista
+
+            final String APILinhaFaturaWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/linhafatura";
+            String url = APILinhaFaturaWithIP + "/linha/"+idRecuperado+"?token=" + token;
+
+            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    linha_faturas = JsonParser.parserJsonLinhaFaturas(response);
+
+                    if (linhafaturasListener != null) {
+                        linhafaturasListener.onRefreshLinhaFaturas(linha_faturas);
                     }
                 }
             }, new Response.ErrorListener() {

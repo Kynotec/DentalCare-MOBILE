@@ -3,9 +3,12 @@ package com.example.dentalcare;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.dentalcare.listeners.DetalhesFaturaListener;
@@ -24,17 +27,21 @@ public class DetalhesFaturasActivity extends AppCompatActivity implements Detalh
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         int id = getIntent().getIntExtra("ID_FATURA", 0);
         fatura = SingletonGestorApp.getInstance(getApplicationContext()).getFatura(id);
         tvNFatura = findViewById(R.id.tvNFatura);
-        tvDataFatura = findViewById(R.id.tvDataFatura);
-        tvValorTotalFatura = findViewById(R.id.tvValorTotalFatura);
-        tvIvaTotalFatura = findViewById(R.id.tvIvaTotalFatura);
-        tvSubTotalFatura = findViewById(R.id.tvSubTotalFatura);
-        tvEstadoFatura = findViewById(R.id.tvEstadoFatura);
+        tvDataFatura = findViewById(R.id.tvIdLinhaFatura);
+        tvValorTotalFatura = findViewById(R.id.tvValorTotalLinhaFatura);
+        tvIvaTotalFatura = findViewById(R.id.tvProdutoLinhaFatura);
+        tvSubTotalFatura = findViewById(R.id.tvServicoLinhaFatura);
+        tvEstadoFatura = findViewById(R.id.tvQuantidadeLinhaFatura);
+
+        SharedPreferences sharedFatura = getSharedPreferences("FATURA_ID", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedFatura.edit();
+        editor.putInt("id", id);
+        editor.apply();
 
         SingletonGestorApp.getInstance(getApplicationContext()).setDetalhesFaturaListener(this);
 
@@ -70,5 +77,13 @@ public class DetalhesFaturasActivity extends AppCompatActivity implements Detalh
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void LinhaFaturaOnClick(View view) {
+
+        Intent intent = new Intent(this,MainActivity2.class);
+        startActivity(intent);
+        finish();
+
     }
 }
