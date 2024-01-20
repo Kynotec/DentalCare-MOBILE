@@ -13,7 +13,7 @@ public class BDHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "dentalcare";
     private static final int DB_VERSION = 1;
 
-    private static final String TABLE_PRODUTOS = "produtos", TABLE_SERVICOS = "servicos", TABLE_CONSULTAS = "consultas",
+    private static final String TABLE_PRODUTOS = "produtos", TABLE_SERVICOS = "servicos",
             TABLE_DIAGNOSTICOS = "diagnosticos", TABLE_IVAS = "ivas", TABLE_LINHASFATURAS = "linhasfaturas",
             TABLE_FATURAS = "faturas";
     private final SQLiteDatabase db;
@@ -23,15 +23,13 @@ public class BDHelper extends SQLiteOpenHelper {
             QUANTIDADE = "quantidade", VALORUNITARIO = "valorunitario", VALORIVA = "valoriva", EMVIGOR = "emvigor",
             PERCENTAGEM = "percentagem", FATURA_ID = "fatura_id", PRODUTO_ID = "produto_id", SERVICO_ID = "servico_id",
             NOME = "nome", DESCRICAO = "descricao", PRECOUNITARIO = "precounitario", STOCK = "stock",
-            REFERENCIA = "referencia", PRECO = "preco", IVA_ID = "iva_id", HORA = "hora",
+            REFERENCIA = "referencia", PRECO = "preco", IVA_ID = "iva_id", HORA = "hora", ESTADO="estado",
 
             IMAGEM = "imagem",
 
-            CONSULTA_ID = "consulta_id", ESTADO = "estado", PROFILE_ID = "profile_id";
+            CONSULTA_ID = "consulta_id", PROFILE_ID = "profile_id";
 
-
-
-
+    private static final String TABLE_MARCACOES ="consultas";
 
 
 
@@ -43,6 +41,18 @@ public class BDHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
+        String sqlCreateTable="CREATE TABLE "+TABLE_MARCACOES+
+                "(" + ID +" INTEGER PRIMARY KEY , "+
+                DESCRICAO + " TEXT, "+
+                DATA + " TEXT NOT NULL, "+
+                HORA + " TEXT NOT NULL, "+
+                ESTADO + " TEXT NOT NULL, "+
+                PRODUTO_ID + " FOREIGNKEY NOT NULL," +
+                SERVICO_ID  + " FOREIGNKEY NOT NULL);";
+
+        sqLiteDatabase.execSQL(sqlCreateTable);
+
         String createTableProdutos = "CREATE TABLE " + TABLE_PRODUTOS + "(" + ID + " INTEGER PRIMARY KEY," +
                 NOME + " TEXT NOT NULL," +
                 DESCRICAO + " TEXT NOT NULL," +
@@ -117,6 +127,7 @@ public class BDHelper extends SQLiteOpenHelper {
         String sqlDeleteTableDiagnosticos = "DROP TABLE IF EXISTS " + TABLE_DIAGNOSTICOS;
         String sqlDeleteTableLinhasFaturas = "DROP TABLE IF EXISTS " + TABLE_LINHASFATURAS;
         String sqlDeleteTableFaturas = "DROP TABLE IF EXISTS " + TABLE_FATURAS;
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ TABLE_MARCACOES);
 
 
         sqLiteDatabase.execSQL(sqlDeleteTableProduto);
@@ -268,6 +279,25 @@ public class BDHelper extends SQLiteOpenHelper {
 
     //endregion
 
+    //Marcacoes
 
+    public boolean editarMarcacaoBD(Consulta marcacao){
+
+        ContentValues values = new ContentValues();
+        values.put(DESCRICAO,marcacao.getDescricao());
+        values.put(DATA,marcacao.getData());
+        values.put(HORA,marcacao.getHora());
+        values.put(ESTADO,marcacao.getEstado());
+        values.put(SERVICO_ID,marcacao.getNomeservico());
+        //o metodo insert devolve o id como sendo um long
+        int nLinhasUpdate = this.db.update(TABLE_MARCACOES,values,ID +"=?",new String[]{marcacao.getId()+""});
+
+        return nLinhasUpdate>0; // devolve o valor loginco da condição
+    }
+
+    public boolean removerMarcacaoBD(int idMarcacao) {
+        int nLinhasDel = this.db.delete(TABLE_MARCACOES,ID +"=?",new String[]{idMarcacao+""});
+        return nLinhasDel>0; // devolve o valor loginco da condição
+    }
 
 }

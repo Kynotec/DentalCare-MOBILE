@@ -7,20 +7,24 @@ public class Consulta {
 
     private int id, profile_id, servico_id;
 
-    private String descricao, estado;
+    private String descricao, estado, data, hora, nomeservico;
 
-    private LocalDate data;
-
-    private LocalTime hora;
-
-    public Consulta(int id, int profile_id, int servico_id, String descricao, String estado, LocalDate data, LocalTime hora) {
+    public Consulta(int id, int profile_id, int servico_id, String descricao, String estado, String data, String hora,String nomeservico) {
         this.id = id;
         this.descricao = descricao;
         this.estado = estado;
         this.data = data;
         this.hora = hora;
+        this.nomeservico = nomeservico;
     }
 
+    public String getNomeservico() {
+        return nomeservico;
+    }
+
+    public void setNomeservico(String nomeservico) {
+        this.nomeservico = nomeservico;
+    }
 
     public int getId() {return id;}
 
@@ -44,17 +48,17 @@ public class Consulta {
         this.estado = estado;
     }
 
-    public LocalDate getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(LocalDate data) {
+    public void setData(String data) {
         this.data = data;
     }
 
-    public LocalTime getHora() {return hora;}
+    public String getHora() {return hora;}
 
-    public void setHora(LocalTime hora) {this.hora = hora;}
+    public void setHora(String hora) {this.hora = hora;}
 
     public int getProfile_id() {return profile_id;}
 

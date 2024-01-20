@@ -31,7 +31,7 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
 
     public static final String OPERACAO ="OPERACAO";
 
-
+    public static final int ADD =100, EDIT =200, DELETE = 300;
 
     public NavigationView navigationView;
     private DrawerLayout drawer;
@@ -124,6 +124,11 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
             fragment = new ListaFaturasFragment();
             setTitle(item.getTitle());
             System.out.println("-->Nav Faturas");
+        }
+        else if (item.getItemId() == R.id.navItemListaMarcacoes) {
+            fragment = new ListaMarcacoesFragment();
+            setTitle(item.getTitle());
+            System.out.println("-->Nav Marcacoes");
         }
         if (fragment != null)
             fragmentManager.beginTransaction().replace(R.id.contentFragment, fragment).commit();

@@ -22,12 +22,14 @@ import com.example.dentalcare.MenuMainActivity;
 import com.example.dentalcare.R;
 import com.example.dentalcare.listeners.CarrinhosListener;
 import com.example.dentalcare.listeners.DetalhesDiagnosticoListener;
+import com.example.dentalcare.listeners.DetalhesMarcacaoListener;
 import com.example.dentalcare.listeners.DetalhesProdutoListener;
 import com.example.dentalcare.listeners.DetalhesServicoListener;
 import com.example.dentalcare.listeners.DiagnosticoListener;
 import com.example.dentalcare.listeners.FaturaListener;
 import com.example.dentalcare.listeners.LinhaFaturaListener;
 import com.example.dentalcare.listeners.LoginListener;
+import com.example.dentalcare.listeners.MarcacaoListener;
 import com.example.dentalcare.listeners.PerfilListener;
 import com.example.dentalcare.listeners.ProdutosListener;
 import com.example.dentalcare.listeners.ServicosListener;
@@ -50,6 +52,7 @@ public class SingletonGestorApp {
     private ArrayList<Produto> produtos;
     private ArrayList<Servico> servicos;
 
+    private ArrayList<Consulta> marcacoes;
     private Perfil perfils;
 
     private ArrayList<Diagnostico> diagnosticos;
@@ -67,13 +70,20 @@ public class SingletonGestorApp {
     private DiagnosticoListener diagnosticosListener;
     private FaturaListener faturasListener;
     private LinhaFaturaListener linhafaturasListener;
+
+    private MarcacaoListener marcacoesListener;
+    private DetalhesMarcacaoListener marcacaoListener;
     private DetalhesServicoListener detalhesServicoListener;
     private DetalhesProdutoListener detalhesProdutoListener;
     private DetalhesFaturasActivity detalhesFaturaListener;
     private DetalhesDiagnosticoListener detalhesDiagnosticoListener;
 
+    private DetalhesMarcacaoListener detalhesMarcacaoListener;
+
     private CarrinhosListener carrinhosListener;
     private BDHelper BD;
+
+    private BDHelper marcacoesBD;
 
 
 
@@ -132,10 +142,22 @@ public class SingletonGestorApp {
         this.detalhesProdutoListener = detalhesProdutoListener;
     }
 
-
-
     public void setDetalhesFaturaListener(DetalhesFaturasActivity detalhesFaturaListener) {
         this.detalhesFaturaListener = detalhesFaturaListener;
+    }
+
+    public void setMarcacoesListener(MarcacaoListener marcacoesListener){
+        this.marcacoesListener = marcacoesListener;
+    }
+
+    public void setMarcacaoListener(DetalhesMarcacaoListener marcacaoListener){
+        this.marcacaoListener = marcacaoListener;
+    }
+
+
+    public void setDetalhesMarcacaoListener(DetalhesMarcacaoListener detalhesMarcacaoListener) {
+        this.detalhesMarcacaoListener = detalhesMarcacaoListener;
+
     }
 
     //Adiciona o IP no Singleton
@@ -171,6 +193,13 @@ public class SingletonGestorApp {
         return null;
     }
 
+    public Consulta getMarcacao(int id) {
+        for (Consulta c : marcacoes) {
+            if (c.getId() == id)
+                return c;
+        }
+        return null;
+    }
     public Linha_fatura getLinhaFatura(int id) {
         for (Linha_fatura s : linha_faturas) {
             if (s.getId() == id)
@@ -186,7 +215,15 @@ public class SingletonGestorApp {
         }
         return null;
     }
+    public void removerMarcacaoBD(int idMarcacao) {
+        marcacoesBD.removerMarcacaoBD(idMarcacao);
+    }
 
+    public void editarMarcacaoBD(Consulta marcacao) {
+
+        if (marcacao != null)
+            marcacoesBD.editarMarcacaoBD(marcacao);
+    }
     public void loginAPI(final String username, final String password, final Context context) {
         // Obter o endereço IP armazenado nas SharedPreferences
         String ipAddress = SingletonGestorApp.getInstance(context).getIpAddress();
@@ -580,6 +617,64 @@ public class SingletonGestorApp {
 
             volleyQueue.add(JsonArrayRequest);
         }
+    }
+    //Marcações
+    public void getAllMarcacoesAPI(final Context context, String token) {
+        if (!JsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+        } else {
+
+            final String APIMarcacaoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/consulta";
+            String url = APIMarcacaoWithIP + "/get-marcacao-perfil?token=" + token;
+
+            JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    marcacoes = JsonParser.parserJsonMarcacoes(response);
+
+                    if (marcacoesListener != null) {
+                        marcacoesListener.onRefreshListaMarcacoes(marcacoes);
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+            volleyQueue.add(req);
+        }
+    }
+
+    public void removerMarcacaoAPI(final Consulta marcacao, final Context context, String token) {
+
+        if (!JsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "Nao têm ligação à internet", Toast.LENGTH_SHORT).show();
+        } else {
+            final String APIMarcacaoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/consulta";
+            StringRequest request = new StringRequest(Request.Method.DELETE, APIMarcacaoWithIP + "/" + marcacao.getId() + "?access-token=" + token, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    //1-remover BD Local
+                    //removerMarcacaoBD(marcacao.getId());
+
+                    //TODO 2- informar a vista
+                    if(marcacaoListener !=null){
+                        marcacaoListener.onRefreshDetalhes(MenuMainActivity.DELETE);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+            volleyQueue.add(request);
+        }
+
     }
 
 

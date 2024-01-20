@@ -66,6 +66,7 @@
     <string name="a_carregar_produtos">A carregar Produtos</string>
     <string name="a_carregar_servicos">A Carregar Servicos</string>
     <string name="menu_pesquisa">menu pesquisa\n</string>
-
+    <string name="txt_estado_marcacao">Estado:</string>
+    <string name="txt_descricao">Descrição:</string>
 
 </resources>

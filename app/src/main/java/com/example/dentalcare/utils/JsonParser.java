@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.example.dentalcare.models.Carrinho;
+import com.example.dentalcare.models.Consulta;
 import com.example.dentalcare.models.Diagnostico;
 import com.example.dentalcare.models.Fatura;
 import com.example.dentalcare.models.Linha_carrinho;
@@ -269,7 +270,6 @@ public class JsonParser {
 
         return linha_faturas;
     }
-
     public static ArrayList<Linha_carrinho> parserJsonCarrinho(JSONArray response)
     {
         ArrayList<Linha_carrinho> linhaCarrinhos = new ArrayList<>();
@@ -296,8 +296,31 @@ public class JsonParser {
         return linhaCarrinhos;
     }
 
+    //Consultas
+    public static ArrayList<Consulta> parserJsonMarcacoes(JSONArray response) {
+        ArrayList<Consulta> marcacoes = new ArrayList<>();
+        try {
+            for (int i = 0; i < response.length(); i++) {
 
+                JSONObject marcacaoJson = (JSONObject) response.get(i);
+                int id = marcacaoJson.getInt("id");
+                int profile_id = marcacaoJson.getInt("profile_id");
+                int servico_id = marcacaoJson.getInt("servico_id");
+                String descricao = marcacaoJson.getString("descricao");
+                String estado = marcacaoJson.getString("estado");
+                String data = marcacaoJson.getString("data");
+                String hora = marcacaoJson.getString("hora");
+                String nomeservico = marcacaoJson.getString("nomeservico");
 
+                Consulta marcacao = new Consulta(id,profile_id,servico_id,descricao,estado,data,hora,nomeservico);
+                marcacoes.add(marcacao);
+            }
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        return marcacoes;
+    }
 
     public static Boolean isConnectionInternet(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
