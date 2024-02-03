@@ -269,24 +269,25 @@ public class JsonParser {
 
         return linha_faturas;
     }
-    public static ArrayList<Linha_carrinho> parserJsonCarrinho(JSONArray response)
+
+    //CARRINHO
+    public static ArrayList<Linha_carrinho> parserJsonLinhaCarrinho(JSONArray response)
     {
         ArrayList<Linha_carrinho> linhaCarrinhos = new ArrayList<>();
 
         try {
             for (int i=0; i< response.length();i++) {
-                JSONObject jsonObject = (JSONObject) response.getJSONObject(i);
-                JSONObject produto = jsonObject.getJSONObject("produto");
-                int id=produto.getInt("id");
-                String nome = produto.getString("nome");
-                String descricao = produto.getString("descricao");
-                double precounitario = produto.getDouble("precounitario");
-                int stock = produto.getInt("stock");
-                String data = jsonObject.getString("data");
-                double valortotal = jsonObject.getDouble("valortotal");
-                Produto produtoAux = new Produto(id,nome,descricao,precounitario,stock,null);
-             //   Linha_carrinho linhaCarrinho = new Carrinho(produtoAux,data,valortotal);
-                //linhaCarrinhos.add(linhaCarrinho);
+                JSONObject linhacarrinhoJSON = (JSONObject) response.get(i);
+                int id= linhacarrinhoJSON.getInt("id");
+                String nome = linhacarrinhoJSON.getString("nome");
+                String quantidadeString = linhacarrinhoJSON.getString("quantidade");
+                double quantidade = Double.parseDouble(quantidadeString);
+                String valortotalString = linhacarrinhoJSON.getString("valortotal");
+                double valortotal = Double.parseDouble(valortotalString);
+                String imagem ="http://172.22.21.201/DentalCare-WEB/DentalCare/public/images/products/" + linhacarrinhoJSON.getString("imagem");
+                Linha_carrinho carrinhoAux = new Linha_carrinho(id,quantidade,valortotal,imagem,nome);
+
+             linhaCarrinhos.add(carrinhoAux);
             }
         }catch (JSONException e){
             e.printStackTrace();
@@ -320,7 +321,28 @@ public class JsonParser {
 
         return marcacoes;
     }
+    public static Fatura parserJsonFatura(String response) {
+        Fatura fatura  = null;
+        try {
+            JSONObject faturaJSON = new JSONObject(response);
+            int id = faturaJSON.getInt("id");
+            String data = faturaJSON.getString("data");
+            String valortotalString = faturaJSON.getString("valortotal");
+            double valortotal= Double.parseDouble(valortotalString);
+            String ivatotalString = faturaJSON.getString("ivatotal");
+            double ivatotal= Double.parseDouble(ivatotalString);
+            String subtotalString = faturaJSON.getString("subtotal");
+            double subtotal= Double.parseDouble(subtotalString);
+            String estado = faturaJSON.getString("estado");
+            int profile_id = faturaJSON.getInt("profile_id");
 
+
+            fatura = new Fatura(id,profile_id,data,valortotal,ivatotal,subtotal,estado);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return fatura;
+    }
     public static Boolean isConnectionInternet(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();

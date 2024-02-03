@@ -125,6 +125,11 @@ public class MenuMainActivity extends AppCompatActivity implements NavigationVie
             setTitle(item.getTitle());
             System.out.println("-->Nav Faturas");
         }
+        else if (item.getItemId() == R.id.navItemCarrinho) {
+            fragment = new ListaCarrinhosFragment();
+            setTitle(item.getTitle());
+            System.out.println("-->Nav Carrinho");
+        }
         else if (item.getItemId() == R.id.navItemListaMarcacoes) {
             fragment = new ListaMarcacoesFragment();
             setTitle(item.getTitle());

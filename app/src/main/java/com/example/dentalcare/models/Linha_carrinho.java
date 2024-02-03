@@ -2,19 +2,18 @@ package com.example.dentalcare.models;
 
 public class Linha_carrinho {
 
-    private int id, carrinho_id, produto_id;
+    String imagem, nome;
+    private int id;
 
-    private float quantidade, valortotal;
+    private double quantidade, valortotal;
 
-    private double valoriva;
 
-    public Linha_carrinho(int id,int carrinho_id, int produto_id, float quantidade, float valortotal, double valoriva) {
+    public Linha_carrinho(int id, double quantidade, double valortotal, String imagem,String nome) {
         this.id = id;
         this.quantidade = quantidade;
         this.valortotal = valortotal;
-        this.valoriva = valoriva;
-        this.carrinho_id = carrinho_id;
-        this.produto_id = produto_id;
+        this.imagem = imagem;
+        this.nome = nome;
     }
 
 
@@ -26,35 +25,27 @@ public class Linha_carrinho {
         this.id = id;
     }
 
-    public float getQuantidade() {
+    public double getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(float quantidade) {
+    public void setQuantidade(double quantidade) {
         this.quantidade = quantidade;
     }
 
-    public float getValortotal() {
+    public double getValortotal() {
         return valortotal;
     }
 
-    public void setValortotal(float valortotal) {
+    public void setValortotal(double valortotal) {
         this.valortotal = valortotal;
     }
 
-    public double getValoriva() {
-        return valoriva;
-    }
+    public String getImagem() {return imagem;}
 
-    public void setValoriva(double valoriva) {
-        this.valoriva = valoriva;
-    }
+    public void setImagem(String imagem) {this.imagem = imagem;}
 
-    public int getCarrinho_id() {return carrinho_id;}
+    public String getNome() {return nome;}
 
-    public void setCarrinho_id(int carrinho_id) {this.carrinho_id = carrinho_id;}
-
-    public int getProduto_id() {return produto_id;}
-
-    public void setProduto_id(int produto_id) {this.produto_id = produto_id;}
+    public void setNome(String nome) {this.nome = nome;}
 }

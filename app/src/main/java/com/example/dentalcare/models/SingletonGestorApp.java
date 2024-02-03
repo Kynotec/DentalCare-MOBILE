@@ -18,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.dentalcare.CarrinhoActivity;
 import com.example.dentalcare.DetalhesFaturasActivity;
+import com.example.dentalcare.ListaCarrinhosFragment;
 import com.example.dentalcare.MenuMainActivity;
 import com.example.dentalcare.R;
 import com.example.dentalcare.listeners.CarrinhosListener;
@@ -27,12 +28,16 @@ import com.example.dentalcare.listeners.DetalhesProdutoListener;
 import com.example.dentalcare.listeners.DetalhesServicoListener;
 import com.example.dentalcare.listeners.DiagnosticoListener;
 import com.example.dentalcare.listeners.FaturaListener;
+import com.example.dentalcare.listeners.FaturaUnicaListener;
+import com.example.dentalcare.listeners.LinhaCarrinhoListener;
 import com.example.dentalcare.listeners.LinhaFaturaListener;
 import com.example.dentalcare.listeners.LoginListener;
 import com.example.dentalcare.listeners.MarcacaoListener;
 import com.example.dentalcare.listeners.PerfilListener;
 import com.example.dentalcare.listeners.ProdutosListener;
+import com.example.dentalcare.listeners.RemoverLinhaCarrinhoListener;
 import com.example.dentalcare.listeners.ServicosListener;
+import com.example.dentalcare.listeners.TemLinhaCarrinhoListener;
 import com.example.dentalcare.utils.JsonParser;
 
 import org.json.JSONArray;
@@ -49,6 +54,10 @@ public class SingletonGestorApp {
 
     private int fatura_id;
 
+    private boolean temlinhacarrinho = false;
+
+    private boolean temitemslinhacarrinho = false;
+
     private ArrayList<Produto> produtos;
     private ArrayList<Servico> servicos;
 
@@ -61,6 +70,9 @@ public class SingletonGestorApp {
 
     private ArrayList<Linha_fatura> linha_faturas;
 
+    private  ArrayList<Linha_carrinho> linhaCarrinhos;
+    private Fatura fatura;
+
     private static SingletonGestorApp instance = null;
     private static RequestQueue volleyQueue = null;
     private LoginListener loginListener;
@@ -71,6 +83,8 @@ public class SingletonGestorApp {
     private FaturaListener faturasListener;
     private LinhaFaturaListener linhafaturasListener;
 
+    private RemoverLinhaCarrinhoListener removerLinhaCarrinhoListener;
+
     private MarcacaoListener marcacoesListener;
     private DetalhesMarcacaoListener marcacaoListener;
     private DetalhesServicoListener detalhesServicoListener;
@@ -78,9 +92,15 @@ public class SingletonGestorApp {
     private DetalhesFaturasActivity detalhesFaturaListener;
     private DetalhesDiagnosticoListener detalhesDiagnosticoListener;
 
+    private TemLinhaCarrinhoListener temLinhaCarrinhoListener;
+
     private DetalhesMarcacaoListener detalhesMarcacaoListener;
 
     private CarrinhosListener carrinhosListener;
+
+    private LinhaCarrinhoListener linhaCarrinhoListener;
+
+    private FaturaUnicaListener faturaUnicaListener;
     private BDHelper BD;
 
     private BDHelper marcacoesBD;
@@ -108,8 +128,17 @@ public class SingletonGestorApp {
         this.carrinhosListener = carrinhosListener;
     }
 
+    public void setTemitemslinhacarrinho(TemLinhaCarrinhoListener temLinhaCarrinhoListener) {
+        this.temLinhaCarrinhoListener = temLinhaCarrinhoListener;
+    }
+
+
     public void setServicosListener(ServicosListener servicosListener){
         this.servicosListener = servicosListener;
+    }
+
+    public void setRemoverLinhaCarrinhoListener(RemoverLinhaCarrinhoListener removerLinhaCarrinhoListener){
+        this.removerLinhaCarrinhoListener = removerLinhaCarrinhoListener;
     }
 
     public void setDiagnosticosListener(DiagnosticoListener diagnosticosListener){
@@ -158,6 +187,15 @@ public class SingletonGestorApp {
     public void setDetalhesMarcacaoListener(DetalhesMarcacaoListener detalhesMarcacaoListener) {
         this.detalhesMarcacaoListener = detalhesMarcacaoListener;
 
+    }
+
+    public void setLinhaCarrinhoListener(LinhaCarrinhoListener linhaCarrinhoListener) {
+        this.linhaCarrinhoListener = linhaCarrinhoListener;
+
+    }
+
+    public void setFaturaUnicaListener(FaturaUnicaListener faturaUnicaListener){
+        this.faturaUnicaListener = faturaUnicaListener;
     }
 
     //Adiciona o IP no Singleton
@@ -585,7 +623,7 @@ public class SingletonGestorApp {
     }
 
 
-    public void viewCarrinhoAPI(final Context context) {
+    public void getViewCarrinhoAPI(final Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MenuMainActivity.SHARED_USER, Context.MODE_PRIVATE);
         String token = sharedPreferences.getString(MenuMainActivity.TOKEN, null);
         SharedPreferences preferences = context.getSharedPreferences("DADOS_USER", Context.MODE_PRIVATE);
@@ -595,15 +633,14 @@ public class SingletonGestorApp {
         }else {
 
             final String APICarrinhoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/carrinho";
-            String urlCarrinho = APICarrinhoWithIP + "/buscarcarrinho/" + "/user/" + id +"?token=" + token;
+            String urlCarrinho = APICarrinhoWithIP + "/buscarcarrinho" + "/user/" + id +"?token=" + token;
 
             JsonArrayRequest JsonArrayRequest = new JsonArrayRequest(Request.Method.GET, urlCarrinho, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
-                    ArrayList<Linha_carrinho> linhaCarrinhos = JsonParser.parserJsonCarrinho(response);
-                   // if()
-
-
+                    if (linhaCarrinhoListener != null){
+                        linhaCarrinhoListener.onRefreshLinhaCarrinho(linhaCarrinhos);
+                    }
                 }
 
             }, new Response.ErrorListener() {
@@ -618,6 +655,76 @@ public class SingletonGestorApp {
             volleyQueue.add(JsonArrayRequest);
         }
     }
+
+    public void getPagamentoAPI(final Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MenuMainActivity.SHARED_USER, Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString(MenuMainActivity.TOKEN, null);
+        SharedPreferences preferences = context.getSharedPreferences("DADOS_USER", Context.MODE_PRIVATE);
+        int id= preferences.getInt("id",0);
+
+        if(!JsonParser.isConnectionInternet(context)){
+            Toast.makeText(context, "Não a ligação á internet", Toast.LENGTH_SHORT).show();
+
+        }else{
+            final String APIPagamnetoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/carrinho";
+            StringRequest req=new StringRequest(Request.Method.GET, APIPagamnetoWithIP+"/checkoutcarrinho/"+id+"?token="+token,  new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    temitemslinhacarrinho= Boolean.parseBoolean(response);
+                    if (temLinhaCarrinhoListener != null){
+                        temLinhaCarrinhoListener.onRefreshLinhaCarrinho(temitemslinhacarrinho);
+                    }
+
+                    if (linhaCarrinhoListener != null){
+                        linhaCarrinhoListener.onRefreshLinhaCarrinho(linhaCarrinhos);
+                    }
+
+                    if(faturasListener != null){
+                        faturasListener.onRefreshListaFaturas(faturas);
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+            volleyQueue.add(req);
+        }
+    }
+
+    public void removerlinhaCarrinhoAPI(int linhaCarrinho_id, final Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MenuMainActivity.SHARED_USER, Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString(MenuMainActivity.TOKEN, null);
+        if (!JsonParser.isConnectionInternet(context)) {
+            Toast.makeText(context, "Nao têm ligação à internet", Toast.LENGTH_SHORT).show();
+        } else {
+            final String APICarrinhoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/carrinho";
+            StringRequest request = new StringRequest(Request.Method.DELETE, APICarrinhoWithIP + "/removerlinhacarrinho/" + linhaCarrinho_id + "?access-token=" + token, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    temlinhacarrinho= Boolean.parseBoolean(response);
+
+                    //TODO 2- informar a vista
+                    if(removerLinhaCarrinhoListener !=null){
+                        removerLinhaCarrinhoListener.onRefreshLinhaCarrinho(temlinhacarrinho);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+            volleyQueue.add(request);
+        }
+
+    }
+
+
+
     //Marcações
     public void getAllMarcacoesAPI(final Context context, String token) {
         if (!JsonParser.isConnectionInternet(context)) {

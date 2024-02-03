@@ -46,14 +46,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="@string/txt_descricao_produto" />
+                android:text="@string/txt_quantidade_produto_carrinho" />
 
             <TextView
-                android:id="@+id/tvDescricaoProduto"
+                android:id="@+id/tvQuantidadeProduto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -63,10 +64,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="@string/txt_precounitario_produto" />
+                android:text="@string/txt_valor_total_produto_carrinho" />
 
             <TextView
-                android:id="@+id/tvPrecoUnitarioProduto"
+                android:id="@+id/tvValorTotalProduto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -82,17 +83,18 @@
         android:orientation="horizontal">
 
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <Button
             android:id="@+id/RemoverCarrinhoProduto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="center"
             android:layout_margin="16dp"
-            android:focusable="true"
-            android:clickable="true"
-            app:backgroundTint="@color/white"
-            android:src="@drawable/ic_action_delete" />
+            android:backgroundTint="#322E2E"
+            android:background="@drawable/ic_action_delete"
+            />
 
     </LinearLayout>
 
+
 </LinearLayout>
+
