@@ -19,6 +19,7 @@ import com.example.dentalcare.listeners.MarcacaoListener;
 import com.example.dentalcare.models.Consulta;
 import com.example.dentalcare.models.Diagnostico;
 import com.example.dentalcare.models.SingletonGestorApp;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,8 @@ public class ListaMarcacoesFragment extends Fragment implements MarcacaoListener
 
     private String token;
     public static final int ACT_DETAlHES =1;
+
+    private FloatingActionButton fabLista;
 
     public ListaMarcacoesFragment() {
         // Required empty public constructor
@@ -42,6 +45,8 @@ public class ListaMarcacoesFragment extends Fragment implements MarcacaoListener
 
         lvmarcacoes = view.findViewById(R.id.lvmarcacoes);
 
+        SingletonGestorApp.getInstance(getContext()).setMarcacoesListener(this);
+        SingletonGestorApp.getInstance(getContext()).getAllMarcacoesAPI(getContext(), token);
 
         lvmarcacoes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -51,10 +56,15 @@ public class ListaMarcacoesFragment extends Fragment implements MarcacaoListener
                 startActivityForResult(intent, ACT_DETAlHES);
             }
         });
-
-        SingletonGestorApp.getInstance(getContext()).setMarcacoesListener(this);
-        SingletonGestorApp.getInstance(getContext()).getAllMarcacoesAPI(getContext(), token);
-
+        fabLista = view.findViewById(R.id.fabLista);
+        fabLista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), DetalhesMarcacoesActivity.class);
+                // startActivity(intent);
+                startActivityForResult(intent,MenuMainActivity.ADD);
+            }
+        });
         return view;
     }
     @Override

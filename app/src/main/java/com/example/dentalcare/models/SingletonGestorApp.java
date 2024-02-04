@@ -2,7 +2,6 @@ package com.example.dentalcare.models;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -18,10 +17,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.dentalcare.CarrinhoActivity;
 import com.example.dentalcare.DetalhesFaturasActivity;
-import com.example.dentalcare.ListaCarrinhosFragment;
 import com.example.dentalcare.MenuMainActivity;
 import com.example.dentalcare.R;
-import com.example.dentalcare.listeners.CarrinhosListener;
 import com.example.dentalcare.listeners.DetalhesDiagnosticoListener;
 import com.example.dentalcare.listeners.DetalhesMarcacaoListener;
 import com.example.dentalcare.listeners.DetalhesProdutoListener;
@@ -96,8 +93,6 @@ public class SingletonGestorApp {
 
     private DetalhesMarcacaoListener detalhesMarcacaoListener;
 
-    private CarrinhosListener carrinhosListener;
-
     private LinhaCarrinhoListener linhaCarrinhoListener;
 
     private FaturaUnicaListener faturaUnicaListener;
@@ -123,9 +118,6 @@ public class SingletonGestorApp {
 
     public void setLoginListener(LoginListener loginListener) {
         this.loginListener = loginListener;
-    }
-    public void setCarrinhosListener(CarrinhosListener carrinhosListener) {
-        this.carrinhosListener = carrinhosListener;
     }
 
     public void setTemitemslinhacarrinho(TemLinhaCarrinhoListener temLinhaCarrinhoListener) {
@@ -595,10 +587,6 @@ public class SingletonGestorApp {
                 @Override
                 public void onResponse(String response) {
 
-                    if(carrinhosListener !=null)
-                    {
-                        carrinhosListener.onRefreshDetalhes(CarrinhoActivity.ADD);
-                    }
 
                 }
             }, new Response.ErrorListener() {
@@ -638,9 +626,13 @@ public class SingletonGestorApp {
             JsonArrayRequest JsonArrayRequest = new JsonArrayRequest(Request.Method.GET, urlCarrinho, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
+
+                    linhaCarrinhos = JsonParser.parserJsonLinhaCarrinho(response);
+
                     if (linhaCarrinhoListener != null){
                         linhaCarrinhoListener.onRefreshLinhaCarrinho(linhaCarrinhos);
                     }
+
                 }
 
             }, new Response.ErrorListener() {
@@ -671,6 +663,7 @@ public class SingletonGestorApp {
                 @Override
                 public void onResponse(String response) {
                     temitemslinhacarrinho= Boolean.parseBoolean(response);
+
                     if (temLinhaCarrinhoListener != null){
                         temLinhaCarrinhoListener.onRefreshLinhaCarrinho(temitemslinhacarrinho);
                     }
@@ -761,8 +754,8 @@ public class SingletonGestorApp {
         if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Nao têm ligação à internet", Toast.LENGTH_SHORT).show();
         } else {
-            final String APIMarcacaoWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/consulta";
-            StringRequest request = new StringRequest(Request.Method.DELETE, APIMarcacaoWithIP + "/" + marcacao.getId() + "?access-token=" + token, new Response.Listener<String>() {
+            final String APIMarcacaoRemoveWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/consulta";
+            StringRequest request = new StringRequest(Request.Method.DELETE, APIMarcacaoRemoveWithIP + "/" + marcacao.getId() + "?access-token=" + token, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     //1-remover BD Local
@@ -789,7 +782,7 @@ public class SingletonGestorApp {
             Toast.makeText(context, "Nao têm ligação à internet", Toast.LENGTH_SHORT).show();
         } else {
 
-            final String APIMarcacaoWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/consulta";
+            final String APIMarcacaoWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/consulta/editar-consulta";
             StringRequest request = new StringRequest(Request.Method.PUT, APIMarcacaoWithIP + "/" + marcacao.getId() + "?access-token=" + token, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
