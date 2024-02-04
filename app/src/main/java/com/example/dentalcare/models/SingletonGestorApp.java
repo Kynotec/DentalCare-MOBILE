@@ -270,7 +270,7 @@ public class SingletonGestorApp {
             Toast.makeText(context, "Sem ligação à internet", Toast.LENGTH_LONG).show();
         } else {
             // Substituir o valor fixo de APILogin pelo endereço IP
-            final String APILoginWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/auth/login";
+            final String APILoginWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/auth/login";
 
             StringRequest req = new StringRequest(Request.Method.GET, APILoginWithIP, new Response.Listener<String>() {
                 @Override
@@ -327,7 +327,7 @@ public class SingletonGestorApp {
             }
 
 
-            final String APIPerfilWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/user";
+            final String APIPerfilWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/user";
             StringRequest req = new StringRequest(Request.Method.GET, APIPerfilWithIP + "/get-perfil?=" + token,  new Response.Listener<String>() {
 
                 @Override
@@ -354,7 +354,7 @@ public class SingletonGestorApp {
         if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, context.getString(R.string.sem_ligacao), Toast.LENGTH_SHORT).show();
         } else {
-            final String APIPerfilWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/user";
+            final String APIPerfilWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/user";
             StringRequest req = new StringRequest(Request.Method.PUT, APIPerfilWithIP + "/atualizar-perfil?=" + token,  new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -410,7 +410,7 @@ public class SingletonGestorApp {
                 produtosListener.onRefreshListaProdutos(BD.getAllProdutosBD());
             }
         } else {
-            final String APIProdutoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/produto/produtosimagem";
+            final String APIProdutoWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/produto/produtosimagem";
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, APIProdutoWithIP, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
@@ -463,7 +463,7 @@ public class SingletonGestorApp {
             Toast.makeText(context, context.getString(R.string.sem_ligacao), Toast.LENGTH_SHORT).show();
         }else {
 
-            final String APIServicoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/servico/get-iva";
+            final String APIServicoWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/servico/get-iva";
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, APIServicoWithIP, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
@@ -495,7 +495,7 @@ public class SingletonGestorApp {
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
         } else {
 
-            final String APIDiagnosticoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/diagnostico";
+            final String APIDiagnosticoWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/diagnostico";
             String url = APIDiagnosticoWithIP + "/get-perfil-diagnostico?token=" + token;
 
             JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -522,7 +522,7 @@ public class SingletonGestorApp {
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
         } else {
 
-            final String APIFaturaWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/fatura";
+            final String APIFaturaWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/fatura";
             String url = APIFaturaWithIP + "/get-perfil-fatura?token=" + token;
 
             JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -554,7 +554,7 @@ public class SingletonGestorApp {
             SharedPreferences sharedFatura = context.getSharedPreferences("FATURA_ID", Context.MODE_PRIVATE);
             int idRecuperado = sharedFatura.getInt("id", 0); // Substitua DEFAULT_VALUE pelo valor padrão a ser usado caso o ID não exista
 
-            final String APILinhaFaturaWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/linhafatura";
+            final String APILinhaFaturaWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/linhafatura";
             String url = APILinhaFaturaWithIP + "/linha/"+idRecuperado+"?token=" + token;
 
             JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -588,7 +588,7 @@ public class SingletonGestorApp {
             Toast.makeText(context, context.getString(R.string.sem_ligacao), Toast.LENGTH_SHORT).show();
         }else {
 
-            final String APICarrinhoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/carrinho";
+            final String APICarrinhoWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/carrinho";
             String urlCarrinho = APICarrinhoWithIP + "/adicionar/" + produto.getId() + "/user/" + id +"?token=" + token;
 
             StringRequest StringRequest = new StringRequest(Request.Method.PUT, urlCarrinho, new Response.Listener<String>() {
@@ -632,7 +632,7 @@ public class SingletonGestorApp {
             Toast.makeText(context, context.getString(R.string.sem_ligacao), Toast.LENGTH_SHORT).show();
         }else {
 
-            final String APICarrinhoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/carrinho";
+            final String APICarrinhoWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/carrinho";
             String urlCarrinho = APICarrinhoWithIP + "/buscarcarrinho" + "/user/" + id +"?token=" + token;
 
             JsonArrayRequest JsonArrayRequest = new JsonArrayRequest(Request.Method.GET, urlCarrinho, null, new Response.Listener<JSONArray>() {
@@ -666,7 +666,7 @@ public class SingletonGestorApp {
             Toast.makeText(context, "Não a ligação á internet", Toast.LENGTH_SHORT).show();
 
         }else{
-            final String APIPagamnetoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/carrinho";
+            final String APIPagamnetoWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/carrinho";
             StringRequest req=new StringRequest(Request.Method.GET, APIPagamnetoWithIP+"/checkoutcarrinho/"+id+"?token="+token,  new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -700,7 +700,7 @@ public class SingletonGestorApp {
         if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Nao têm ligação à internet", Toast.LENGTH_SHORT).show();
         } else {
-            final String APICarrinhoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/carrinho";
+            final String APICarrinhoWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/carrinho";
             StringRequest request = new StringRequest(Request.Method.DELETE, APICarrinhoWithIP + "/removerlinhacarrinho/" + linhaCarrinho_id + "?access-token=" + token, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -731,7 +731,7 @@ public class SingletonGestorApp {
             Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
         } else {
 
-            final String APIMarcacaoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/consulta";
+            final String APIMarcacaoWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/consulta";
             String url = APIMarcacaoWithIP + "/get-marcacao-perfil?token=" + token;
 
             JsonArrayRequest req = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -761,7 +761,7 @@ public class SingletonGestorApp {
         if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, "Nao têm ligação à internet", Toast.LENGTH_SHORT).show();
         } else {
-            final String APIMarcacaoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/consulta";
+            final String APIMarcacaoWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/consulta";
             StringRequest request = new StringRequest(Request.Method.DELETE, APIMarcacaoWithIP + "/" + marcacao.getId() + "?access-token=" + token, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -789,7 +789,7 @@ public class SingletonGestorApp {
             Toast.makeText(context, "Nao têm ligação à internet", Toast.LENGTH_SHORT).show();
         } else {
 
-            final String APIMarcacaoWithIP = "http://" + ipAddress + "/DentalCare-SIS-PSI/backend/web/api/consulta";
+            final String APIMarcacaoWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/consulta";
             StringRequest request = new StringRequest(Request.Method.PUT, APIMarcacaoWithIP + "/" + marcacao.getId() + "?access-token=" + token, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
