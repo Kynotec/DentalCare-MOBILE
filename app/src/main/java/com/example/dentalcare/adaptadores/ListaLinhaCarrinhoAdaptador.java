@@ -19,8 +19,6 @@ import com.example.dentalcare.models.SingletonGestorApp;
 
 import java.util.ArrayList;
 
-import javax.xml.transform.Result;
-
 public class ListaLinhaCarrinhoAdaptador  extends BaseAdapter implements RemoverLinhaCarrinhoListener {
 
     private Context context;
@@ -119,6 +117,13 @@ public class ListaLinhaCarrinhoAdaptador  extends BaseAdapter implements Remover
                     .placeholder(R.drawable.dentalcare_logo)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imgCapa);
+        }
+    }
+    public void clearCarrinho() {
+        if (linha_carrinhos != null) {
+            linha_carrinhos.clear();
+            notifyDataSetChanged();
+            showToast("A sua compra foi realizada com sucesso!");
         }
     }
 
