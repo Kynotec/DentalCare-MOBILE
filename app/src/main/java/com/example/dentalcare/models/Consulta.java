@@ -9,14 +9,17 @@ public class Consulta {
 
     private String descricao, estado, data, hora, nomeservico;
 
-    public Consulta(int id, int profile_id, int servico_id, String descricao, String estado, String data, String hora,String nomeservico) {
-        this.id = id;
+
+    public Consulta(int id, int servico_id, String descricao, String data, String hora, String estado, String nomeservico) {
+        this.id = id ;
+        this.servico_id = servico_id ;
         this.descricao = descricao;
-        this.estado = estado;
         this.data = data;
         this.hora = hora;
+        this.estado = estado;
         this.nomeservico = nomeservico;
     }
+
 
     public String getNomeservico() {
         return nomeservico;

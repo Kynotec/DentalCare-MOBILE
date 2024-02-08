@@ -23,7 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DetalhesMarcacoesActivity extends AppCompatActivity  implements DetalhesMarcacaoListener {
 
-    private TextView etDescricao, etDataMarcacao, etHoraMarcacao, etEstadoMarcacao, etNomeServico;
+    private TextView etDescricao, etDataMarcacao, etHoraMarcacao,etEstadoMarcacao ,etNomeServico;
     private FloatingActionButton fabGuardar;
     private Consulta marcacao;
 
@@ -43,6 +43,10 @@ public class DetalhesMarcacoesActivity extends AppCompatActivity  implements Det
         etDescricao = findViewById(R.id.etDescricaoMarcacao);
         etDataMarcacao = findViewById(R.id.etDataDescricao);
         etHoraMarcacao = findViewById(R.id.etHoraMarcacao);
+        etEstadoMarcacao = findViewById(R.id.etEstadoMarcacao);
+        etEstadoMarcacao.setEnabled(false);
+        etEstadoMarcacao.setFocusable(false);
+        etEstadoMarcacao.setClickable(false);
         etNomeServico  = findViewById(R.id.etNomeServicoMarcacao);
         fabGuardar = findViewById(R.id.fabSave);
 
@@ -70,12 +74,12 @@ public class DetalhesMarcacoesActivity extends AppCompatActivity  implements Det
                     marcacao.setHora(etHoraMarcacao.getText().toString());
                     marcacao.setNomeservico(etNomeServico.getText().toString());
 
+
                     SingletonGestorApp.getInstance(getApplicationContext()).editarMarcacaoAPI(marcacao,getApplicationContext(),token);
                 } else {
-                    /*
-                    marcacao = new Consulta(0,DEFAULT_IMG,Integer.parseInt(etAno.getText().toString()),etTitulo.getText().toString(),etSerie.getText().toString(),etAutor.getText().toString());
-                    SingletonGestorApp.getInstance(getApplicationContext()).adicionarLivroAPI(livro,getApplicationContext());
- */
+
+                    marcacao = new Consulta(0,0,etDescricao.getText().toString(),etDataMarcacao.getText().toString(),etHoraMarcacao.getText().toString(),etEstadoMarcacao.getText().toString(),etNomeServico.getText().toString());
+                    SingletonGestorApp.getInstance(getApplicationContext()).adicionarMarcacaoAPI(getApplicationContext(),token,marcacao);
                 }
             }
         });
@@ -91,6 +95,7 @@ public class DetalhesMarcacoesActivity extends AppCompatActivity  implements Det
         etDescricao.setText(marcacao.getDescricao());
         etDataMarcacao.setText(marcacao.getData());
         etHoraMarcacao.setText(marcacao.getHora());
+        etEstadoMarcacao.setText(marcacao.getEstado());
         etNomeServico.setText(marcacao.getNomeservico());
     }
 

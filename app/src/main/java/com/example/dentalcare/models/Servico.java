@@ -4,16 +4,18 @@ public class Servico {
 
     private int id;
 
+    String imagem;
     private String referencia,nome,descricao, ivaspercentagem;
     private double preco;
 
-    public Servico(int id, String referencia, String nome, String descricao, String ivaspercentagem, double preco) {
+
+
+    public Servico(int id, String nome, String descricao, double preco, String imagem) {
         this.id = id;
-        this.referencia = referencia;
         this.nome = nome;
         this.descricao = descricao;
-        this.ivaspercentagem = ivaspercentagem;
         this.preco = preco;
+        this.imagem = imagem;
     }
 
     public String getIvaspercentagem() {
@@ -63,5 +65,13 @@ public class Servico {
 
     public void setPreco(double preco) {
         this.preco = preco;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 }

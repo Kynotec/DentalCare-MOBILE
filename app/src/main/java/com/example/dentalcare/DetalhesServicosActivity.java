@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -28,6 +29,8 @@ public class DetalhesServicosActivity extends AppCompatActivity implements Detal
 
     public static final String ID_SERVICO = "id";
     private TextView etNomeServico, etDescricaoServico, etTaxaIva, etPrecoServico;
+
+    private ImageView imgCapa;
     private Servico servico;
 
     @Override
@@ -48,7 +51,7 @@ public class DetalhesServicosActivity extends AppCompatActivity implements Detal
         etDescricaoServico = findViewById(R.id.etDescricaoServico);
         etTaxaIva = findViewById(R.id.etTaxaIva);
         etPrecoServico = findViewById(R.id.etPrecoServico);
-
+        imgCapa = findViewById(R.id.imgServico);
 
         SingletonGestorApp.getInstance(getApplicationContext()).setDetalhesServicoListener(this);
 
@@ -63,6 +66,12 @@ public class DetalhesServicosActivity extends AppCompatActivity implements Detal
         etDescricaoServico.setText(servico.getDescricao());
         etTaxaIva.setText(String.valueOf(servico.getIvaspercentagem()) + "%");
         etPrecoServico.setText(String.format("%.2f€", servico.getPreco()));
+
+        Glide.with(getApplicationContext())
+                .load(servico.getImagem())
+                .placeholder(R.drawable.dentalcare_logo)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imgCapa);
     }
 
     @Override

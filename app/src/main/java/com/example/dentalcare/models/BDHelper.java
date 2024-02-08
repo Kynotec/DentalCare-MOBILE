@@ -25,7 +25,7 @@ public class BDHelper extends SQLiteOpenHelper {
             NOME = "nome", DESCRICAO = "descricao", PRECOUNITARIO = "precounitario", STOCK = "stock",
             REFERENCIA = "referencia", PRECO = "preco", IVA_ID = "iva_id", HORA = "hora", ESTADO="estado",
 
-            IMAGEM = "imagem", IVASPERCENTAGEM="ivaspercentagem",
+            IMAGEM = "imagem",
 
             CONSULTA_ID = "consulta_id", PROFILE_ID = "profile_id";
 
@@ -62,11 +62,10 @@ public class BDHelper extends SQLiteOpenHelper {
 
 
         String createTableServicos = "CREATE TABLE " + TABLE_SERVICOS + "(" + ID + " INTEGER PRIMARY KEY," +
-                REFERENCIA + " TEXT NOT NULL," +
                 NOME + " TEXT NOT NULL," +
                 DESCRICAO + " TEXT NOT NULL," +
                 PRECO + " DOUBLE NOT NULL," +
-                IVASPERCENTAGEM+ " STRING NOT NULL );";
+                IMAGEM + " TEXT  NOT NULL);";
         /*
         String createTableIVAS = "CREATE TABLE " + TABLE_IVAS + "(" + ID + " INTEGER PRIMARY KEY," +
                 EMVIGOR + " INTEGER NOT NULL," +
@@ -189,14 +188,13 @@ public class BDHelper extends SQLiteOpenHelper {
 
 
     //region CRUD Servicos
-    public Servico adcionarServicoBD(Servico servico) {
+    public Servico adicionarServicoBD(Servico servico) {
         ContentValues values = new ContentValues();
         values.put(ID, servico.getId());
-        values.put(REFERENCIA, servico.getReferencia());
         values.put(NOME, servico.getNome());
         values.put(DESCRICAO, servico.getDescricao());
         values.put(PRECO, servico.getPreco());
-        values.put(IVASPERCENTAGEM, servico.getIvaspercentagem());
+        values.put(IMAGEM, servico.getImagem());
 
 
         // db.insert retorna -1 em caso de erro ou o id que foi criado
@@ -208,20 +206,17 @@ public class BDHelper extends SQLiteOpenHelper {
         return null;
     }
 
-    public void removerAllServicos() {
-        db.delete(TABLE_SERVICOS, null, null);
-    }
+    public void removerAllServicos() {db.delete(TABLE_SERVICOS, null, null);}
 
     public ArrayList<Servico> getAllServicosBD() {
         ArrayList<Servico> servicos = new ArrayList<>();
-        Cursor cursor = db.query(TABLE_SERVICOS, new String[]{ID, REFERENCIA,NOME,DESCRICAO,PRECO,IVASPERCENTAGEM},
+        Cursor cursor = db.query(TABLE_SERVICOS, new String[]{ID,NOME,DESCRICAO,PRECO,IMAGEM},
                 null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
             do {
                 Servico auxServico = new Servico(cursor.getInt(0), cursor.getString(1)
-                        , cursor.getString(2), cursor.getString(3),
-                        cursor.getString(4), cursor.getDouble(5));
+                        , cursor.getString(2), cursor.getDouble(3),cursor.getString(4));
 
                 servicos.add(auxServico);
             } while (cursor.moveToNext());

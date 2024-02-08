@@ -394,6 +394,7 @@ public class SingletonGestorApp {
         BD.adcionarProdutoBD(a);
     }
 
+
     public void getAllProdutosAPI(final Context context) {
         if (!JsonParser.isConnectionInternet(context)) {
             Toast.makeText(context, context.getString(R.string.sem_ligacao), Toast.LENGTH_SHORT).show();
@@ -445,7 +446,7 @@ public class SingletonGestorApp {
 
     public void adicionarServicoBD(Servico a)
     {
-        BD.adcionarServicoBD(a);
+        BD.adicionarServicoBD(a);
     }
 
 
@@ -455,7 +456,7 @@ public class SingletonGestorApp {
             Toast.makeText(context, context.getString(R.string.sem_ligacao), Toast.LENGTH_SHORT).show();
         }else {
 
-            final String APIServicoWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/servico/get-iva";
+            final String APIServicoWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/servico/get-imagem";
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, APIServicoWithIP, null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
@@ -814,6 +815,40 @@ public class SingletonGestorApp {
             };
             volleyQueue.add(request);
         }
+    }
+
+    public void adicionarMarcacaoAPI(final Context context, String token, final Consulta consulta){
+        if (!JsonParser.isConnectionInternet(context)){
+            Toast.makeText(context, "Sem ligação á internet", Toast.LENGTH_LONG).show();
+        }else
+        {
+            final String APIMarcacaoWithIP = "http://" + ipAddress + "/DentalCare-WEB/DentalCare/backend/web/api/consulta/adicionar-consulta";
+            StringRequest req = new StringRequest(Request.Method.POST, APIMarcacaoWithIP + "?access-token=" + token, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    if (marcacaoListener != null) {
+                        marcacaoListener.onRefreshDetalhes(MenuMainActivity.ADD);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }){
+                @Override
+                public Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("descricao", consulta.getDescricao());
+                    params.put("data", consulta.getData()+"");
+                    params.put("hora", consulta.getHora()+"");
+                    params.put("nomeservico", consulta.getNomeservico()+"");
+                    return params;
+                }
+            };
+            volleyQueue.add(req);
+        }
+
     }
 
 }

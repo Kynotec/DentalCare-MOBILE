@@ -5,8 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.dentalcare.R;
 import com.example.dentalcare.models.Produto;
 import com.example.dentalcare.models.Servico;
@@ -62,13 +65,16 @@ public class ListaServicosAdaptador extends BaseAdapter {
 
     private class ViewHolderLista{
         private TextView tvNome, tvPrecoServico, tvTaxaIva;
+
+        private ImageView imgServico;
+
         //  private ImageView imgCapa;
         public ViewHolderLista(View view){
             tvNome=view.findViewById(R.id.tvNomeServico);
             tvTaxaIva=view.findViewById(R.id.tvTaxaIva);
             tvPrecoServico=view.findViewById(R.id.tvPrecoServico);
 
-            //imgCapa = view.findViewById(R.id.imgCapa);
+            imgServico = view.findViewById(R.id.imgServico);
         }
 
         public void update(Servico servico){
@@ -76,15 +82,15 @@ public class ListaServicosAdaptador extends BaseAdapter {
             tvTaxaIva.setText(String.valueOf(servico.getIvaspercentagem()) + "%");
             tvPrecoServico.setText(String.format("%.2f€", servico.getPreco()));
 
-            //imgCapa.setImageResource(livro.getCapa());
-                /*
-                Glide.with(context)
-                        .load(livro.getCapa())
-                        .placeholder(R.drawable.logoipl)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(imgCapa);
 
-                 */
+
+                Glide.with(context)
+                        .load(servico.getImagem())
+                        .placeholder(R.drawable.dentalcare_logo)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(imgServico);
+
+
         }
 
 

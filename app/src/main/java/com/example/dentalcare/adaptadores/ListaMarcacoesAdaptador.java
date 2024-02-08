@@ -62,7 +62,6 @@ public class ListaMarcacoesAdaptador extends BaseAdapter {
             tvHoraMarcacao.setText(marcacao.getHora());
             tvDataMarcacao.setText(marcacao.getData());
             tvEstadoMarcacao.setText(marcacao.getEstado());
-
         }
     }
 }

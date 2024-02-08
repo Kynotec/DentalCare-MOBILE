@@ -110,14 +110,15 @@ public class JsonParser {
 
                 JSONObject servicoJson = (JSONObject) response.get(i);
                 int id = servicoJson.getInt("id");
-                String referencia = servicoJson.getString("referencia");
+                //String referencia = servicoJson.getString("referencia");
                 String nome = servicoJson.getString("nome");
                 String descricao = servicoJson.getString("descricao");
-                String ivaspercentagem = servicoJson.getString("ivaspercentagem");
+                //String ivaspercentagem = servicoJson.getString("ivaspercentagem");
                 String precoString = servicoJson.getString("preco");
                 double preco= Double.parseDouble(precoString);
+                String imagem ="http://172.22.21.201/DentalCare-WEB/DentalCare/public/images/services/" + servicoJson.getString("imagem");
 
-                Servico servico = new Servico(id,referencia,nome,descricao,ivaspercentagem,preco);
+                Servico servico = new Servico(id,nome,descricao,preco,imagem);
                 servicos.add(servico);
             }
         } catch (JSONException e) {
@@ -138,8 +139,9 @@ public class JsonParser {
             String ivaspercentagem = servicoJson.getString("ivaspercentagem");
             String precoString = servicoJson.getString("preco");
             double preco= Double.parseDouble(precoString);
+            String imagem = servicoJson.getString("imagem");
 
-            servico = new Servico(id,referencia,nome,descricao,ivaspercentagem,preco);
+            servico = new Servico(id,nome,descricao,preco,imagem);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -312,7 +314,7 @@ public class JsonParser {
                 String hora = marcacaoJson.getString("hora");
                 String nomeservico = marcacaoJson.getString("nomeservico");
 
-                Consulta marcacao = new Consulta(id,profile_id,servico_id,descricao,estado,data,hora,nomeservico);
+                Consulta marcacao = new Consulta(id,servico_id,descricao,data,hora,estado,nomeservico);
                 marcacoes.add(marcacao);
             }
         } catch (JSONException e) {
