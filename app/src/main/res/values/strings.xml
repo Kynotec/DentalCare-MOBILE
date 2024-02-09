@@ -70,5 +70,6 @@
     <string name="txt_descricao">Descrição:</string>
     <string name="txt_quantidade_produto_carrinho">Quantidade:</string>
     <string name="txt_valor_total_produto_carrinho">Valor total:</string>
+    <string name="ip_servidor">172.22.21.201</string>
 
 </resources>
