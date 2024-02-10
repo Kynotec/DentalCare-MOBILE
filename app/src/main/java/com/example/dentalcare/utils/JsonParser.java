@@ -113,12 +113,12 @@ public class JsonParser {
                 //String referencia = servicoJson.getString("referencia");
                 String nome = servicoJson.getString("nome");
                 String descricao = servicoJson.getString("descricao");
-                //String ivaspercentagem = servicoJson.getString("ivaspercentagem");
+                String ivaspercentagem = servicoJson.getString("ivaspercentagem");
                 String precoString = servicoJson.getString("preco");
                 double preco= Double.parseDouble(precoString);
                 String imagem ="http://172.22.21.201/DentalCare-WEB/DentalCare/public/images/services/" + servicoJson.getString("imagem");
 
-                Servico servico = new Servico(id,nome,descricao,preco,imagem);
+                Servico servico = new Servico(id,nome,descricao,ivaspercentagem,preco,imagem);
                 servicos.add(servico);
             }
         } catch (JSONException e) {
@@ -141,7 +141,7 @@ public class JsonParser {
             double preco= Double.parseDouble(precoString);
             String imagem = servicoJson.getString("imagem");
 
-            servico = new Servico(id,nome,descricao,preco,imagem);
+            servico = new Servico(id,nome,descricao,ivaspercentagem,preco,imagem);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }

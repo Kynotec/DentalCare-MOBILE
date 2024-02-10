@@ -23,7 +23,7 @@ public class BDHelper extends SQLiteOpenHelper {
             QUANTIDADE = "quantidade", VALORUNITARIO = "valorunitario", VALORIVA = "valoriva", EMVIGOR = "emvigor",
             PERCENTAGEM = "percentagem", FATURA_ID = "fatura_id", PRODUTO_ID = "produto_id", SERVICO_ID = "servico_id",
             NOME = "nome", DESCRICAO = "descricao", PRECOUNITARIO = "precounitario", STOCK = "stock",
-            REFERENCIA = "referencia", PRECO = "preco", IVA_ID = "iva_id", HORA = "hora", ESTADO="estado",
+            REFERENCIA = "referencia", PRECO = "preco", IVASPERCENTAGEM = "ivaspercentagem", HORA = "hora", ESTADO="estado",
 
             IMAGEM = "imagem",
 
@@ -64,6 +64,7 @@ public class BDHelper extends SQLiteOpenHelper {
         String createTableServicos = "CREATE TABLE " + TABLE_SERVICOS + "(" + ID + " INTEGER PRIMARY KEY," +
                 NOME + " TEXT NOT NULL," +
                 DESCRICAO + " TEXT NOT NULL," +
+                IVASPERCENTAGEM + " TEXT NOT NULL," +
                 PRECO + " DOUBLE NOT NULL," +
                 IMAGEM + " TEXT  NOT NULL);";
         /*
@@ -193,6 +194,7 @@ public class BDHelper extends SQLiteOpenHelper {
         values.put(ID, servico.getId());
         values.put(NOME, servico.getNome());
         values.put(DESCRICAO, servico.getDescricao());
+        values.put(IVASPERCENTAGEM, servico.getIvaspercentagem());
         values.put(PRECO, servico.getPreco());
         values.put(IMAGEM, servico.getImagem());
 
@@ -210,13 +212,13 @@ public class BDHelper extends SQLiteOpenHelper {
 
     public ArrayList<Servico> getAllServicosBD() {
         ArrayList<Servico> servicos = new ArrayList<>();
-        Cursor cursor = db.query(TABLE_SERVICOS, new String[]{ID,NOME,DESCRICAO,PRECO,IMAGEM},
+        Cursor cursor = db.query(TABLE_SERVICOS, new String[]{ID,NOME,DESCRICAO,IVASPERCENTAGEM,PRECO,IMAGEM},
                 null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
             do {
                 Servico auxServico = new Servico(cursor.getInt(0), cursor.getString(1)
-                        , cursor.getString(2), cursor.getDouble(3),cursor.getString(4));
+                        , cursor.getString(2), cursor.getString(3), cursor.getDouble(4),cursor.getString(5));
 
                 servicos.add(auxServico);
             } while (cursor.moveToNext());

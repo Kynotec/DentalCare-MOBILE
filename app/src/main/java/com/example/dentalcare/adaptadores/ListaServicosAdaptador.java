@@ -73,7 +73,6 @@ public class ListaServicosAdaptador extends BaseAdapter {
             tvNome=view.findViewById(R.id.tvNomeServico);
             tvTaxaIva=view.findViewById(R.id.tvTaxaIva);
             tvPrecoServico=view.findViewById(R.id.tvPrecoServico);
-
             imgServico = view.findViewById(R.id.imgServico);
         }
 

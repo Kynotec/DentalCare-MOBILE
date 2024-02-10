@@ -10,10 +10,11 @@ public class Servico {
 
 
 
-    public Servico(int id, String nome, String descricao, double preco, String imagem) {
+    public Servico(int id, String nome, String descricao, String ivaspercentagem,double preco, String imagem) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
+        this.ivaspercentagem = ivaspercentagem;
         this.preco = preco;
         this.imagem = imagem;
     }
@@ -33,7 +34,6 @@ public class Servico {
     public void setId(int id) {
         this.id = id;
     }
-
 
     public String getReferencia() {
         return referencia;
