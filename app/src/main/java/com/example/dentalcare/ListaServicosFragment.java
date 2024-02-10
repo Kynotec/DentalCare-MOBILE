@@ -55,7 +55,7 @@ public class ListaServicosFragment extends Fragment implements ServicosListener 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), DetalhesServicosActivity.class);
-                intent.putExtra(DetalhesServicosActivity.ID_SERVICO, (int) id);
+                intent.putExtra("ID_SERVICO", (int) id);
                 startActivityForResult(intent, ACT_DETAlHES);
             }
         });
@@ -125,8 +125,8 @@ public class ListaServicosFragment extends Fragment implements ServicosListener 
     public void onRefreshListaServicos(ArrayList<Servico> listaservicos) {
         if (listaservicos != null) {
             // Criar um novo adaptador e definir na ListView
-            servicosAdapter = new ListaServicosAdaptador(getContext(), listaservicos);
-            lvservicos.setAdapter(servicosAdapter);
+           lvservicos.setAdapter (new ListaServicosAdaptador(getContext(), listaservicos));
+
         }
     }
 }

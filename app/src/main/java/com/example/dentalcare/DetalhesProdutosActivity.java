@@ -53,10 +53,7 @@ public class DetalhesProdutosActivity extends AppCompatActivity implements Detal
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (!JsonParser.isConnectionInternet(this)) {
-            Toast.makeText(this, R.string.sem_ligacao, Toast.LENGTH_SHORT).show();
-            finish();
-        }
+
 
         int id = getIntent().getIntExtra("ID_PRODUTO", 0);
         produto = SingletonGestorApp.getInstance(getApplicationContext()).getProduto(id);
@@ -86,6 +83,13 @@ public class DetalhesProdutosActivity extends AppCompatActivity implements Detal
                 showToast("Produto adicionado ao carrinho!");
             }
         });
+
+        if (!JsonParser.isConnectionInternet(getApplicationContext())) {
+            btnMinus.setVisibility(View.GONE);
+            btnMore.setVisibility(View.GONE);
+            numQuant.setVisibility(View.GONE);
+            btnCart.setVisibility(View.GONE);
+        }
 
     }
 
@@ -155,21 +159,23 @@ public class DetalhesProdutosActivity extends AppCompatActivity implements Detal
 
     public void onCLickChangeQuantity(View view) {
 
-        try {
-            int quantity = Integer.parseInt(numQuant.getText().toString());
-            int id = view.getId();
 
-            if (id == R.id.btnMinus && quantity > 1) {
-                quantity--;
-            } else if (id == R.id.btnMore && quantity < 10) {
-                quantity++;
+            try {
+                int quantity = Integer.parseInt(numQuant.getText().toString());
+                int id = view.getId();
+
+                if (id == R.id.btnMinus && quantity > 1) {
+                    quantity--;
+                } else if (id == R.id.btnMore && quantity < 10) {
+                    quantity++;
+                }
+
+                numQuant.setText(String.valueOf(quantity));
+            } catch (NumberFormatException e) {
+
+                Toast.makeText(this, R.string.quantidade_stock_invalido, Toast.LENGTH_LONG).show();
             }
 
-            numQuant.setText(String.valueOf(quantity));
-        } catch (NumberFormatException e) {
-
-            Toast.makeText(this, R.string.quantidade_stock_invalido, Toast.LENGTH_LONG).show();
-        }
     }
 
 

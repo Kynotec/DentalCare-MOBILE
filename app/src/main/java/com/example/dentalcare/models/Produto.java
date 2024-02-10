@@ -1,7 +1,5 @@
 package com.example.dentalcare.models;
 
-import java.util.List;
-
 public class Produto {
 
 
